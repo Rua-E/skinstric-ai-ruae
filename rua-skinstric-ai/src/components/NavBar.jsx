@@ -1,6 +1,6 @@
 import React from "react";
-import LeftBracket from "../../assets/Rectangle 2710.png";
-import RightBracket from "../../assets/Rectangle 2711.png";
+import LeftBracket from "../assets/Rectangle 2710.png";
+import RightBracket from "../assets/Rectangle 2711.png";
 
 const NavBar = () => {
   return (
