@@ -1,12 +1,11 @@
-import NavBar from "./components/NavBar"
+import Layer000 from "./components/Layer000";
 
 function App() {
-
   return (
     <>
-     <NavBar/> 
+      <Layer000 />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
