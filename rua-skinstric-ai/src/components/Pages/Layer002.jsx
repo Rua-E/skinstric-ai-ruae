@@ -2,6 +2,9 @@ import React from "react";
 import Rombuses from "../../assets/rombuses.png";
 import Polygon from "../../assets/Polygon.png";
 
+const myButton = document.getElementById('myButton');
+const myInput = document.getElementById('myInput')
+
 const Layer002 = () => {
   return (
     <>
@@ -19,12 +22,14 @@ const Layer002 = () => {
           >
             <div className="flex flex-col items-center"></div>
             <input
-              className="text-5xl sm:text-6xl font-light text-center bg-transparent border-b border-black focus:outline-none appearance-none w-[420px] sm:w-[432px] pt-1 tracking-[-0.07em] leading-[64px] text-[#1A1B1C] z-10"
+              id="newInput"
+              className="text-5xl sm:text-6xl font-light text-center bg-transparent border-b border-black focus:outline-none appearance-none w-[375px] sm:w-[375px] pt-1 tracking-[-0.07em] leading-[64px] text-[#1A1B1C] z-10"
               placeholder="Introduce Yourself"
               type="text"
               autoComplete="off"
               autoFocus="name"
             />
+            
             <button type="submit" className="sr-only">
               Submit
             </button>
