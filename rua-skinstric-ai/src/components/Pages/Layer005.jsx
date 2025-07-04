@@ -5,6 +5,7 @@ import CameraIcon from "../../assets/camera-icon.png";
 import ScanLine from "../../assets/Group 39690.png";
 import GalleryIcon from "../../assets/gallery-icon.png";
 import GalleryLine from "../../assets/Group 39690 (1).png";
+import Polygon from "../../assets/Polygon.png";
 
 const Layer005 = () => {
   return (
@@ -158,7 +159,27 @@ const Layer005 = () => {
           <input accept="image/*" className="hidden" type="file" />
         </div>
         <div className="pt-4 md:pt-0 pb-8 bg-white sticky md:static bottom-30.5 mb-0 md:mb-0">
-          <div></div>
+          <div className="absolute bottom-8 w-full flex justify-between md:px-9 px-13">
+            <a className="relative" label="Back" href="/testing">
+              <div>
+                <div className="relative w-12 h-12 flex items-center justify-center border border-[#1A1B1C] rotate-45 scale-[1] sm:hidden">
+                  <span className="rotate-[-45deg] text-xs font-semibold sm-hidden">
+                    BACK
+                  </span>
+                </div>
+                <div className="group hidden sm:flex flex-row relative justify-center items-center">
+                  <div className="w-12 h-12 hidden sm:flex justify-center border border-[#1A1B1C] rotate-45 scale-[0.85] group-hover:scale[0.92] ease duration-300"></div>
+                  <span className="absolute left-[13px] bottom-[16px] scale-[0.9] hidden sm:block group-hover:scale-[0.92] ease duration-300">
+                    <img src={Polygon} alt="" className="h-4 w-4" />
+                  </span>
+                  <span className="text-sm font-semibold hidden sm:block ml-6">
+                    BACK
+                  </span>
+                </div>
+              </div>
+            </a>
+            <a href="/select"></a>
+          </div>
         </div>
       </div>
     </>
