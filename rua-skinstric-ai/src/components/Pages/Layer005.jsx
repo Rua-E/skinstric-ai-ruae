@@ -1,7 +1,7 @@
 import React from "react";
-import LargeRectangle from "../../assets/Rectangle 2778.png";
-import MediumRectangle from "../../assets/Rectangle 2780.png";
-import SmallRectangle from "../../assets/Rectangle 2779.png"
+import LargeRectangle from "../../assets/Rectangle 2780.png";
+import MediumRectangle from "../../assets/Rectangle 2779.png";
+import SmallRectangle from "../../assets/Rectangle 2778.png";
 import CameraIcon from "../../assets/camera-icon.png";
 import ScanLine from "../../assets/Group 39690.png";
 import GalleryIcon from "../../assets/gallery-icon.png";
