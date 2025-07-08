@@ -1,4 +1,6 @@
 import React from "react";
+import BackButton from "../BackButton";
+import HomeButton from "../HomeButton";
 
 const Layer013 = () => {
   return (
@@ -82,43 +84,154 @@ const Layer013 = () => {
                       </span>
                     </div>
                     <span className="font-normal text-base leading-6 tracking-tight">
-                      "43" "%"
+                      43%
                     </span>
                   </div>
                   <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer">
                     <div className="flex items-center gap-1">
-                      <div className="flex items-center gap-1">
-                        <img
-                          src=""
-                          alt="radio button"
-                          loading="lazy"
-                          width={12}
-                          height={12}
-                          decoding="async"
-                          data-nimg="1"
-                          className="w-[12px] h-[12px] mr-2"
-                          srcSet=""
-                          style={{ color: "transparent" }}
-                        />
-                        <span className="font-normal text-base leading-6 tracking-tight">
-                          South Asian
-                        </span>
-                      </div>
+                      <img
+                        src=""
+                        alt="radio button"
+                        loading="lazy"
+                        width={12}
+                        height={12}
+                        decoding="async"
+                        data-nimg="1"
+                        className="w-[12px] h-[12px] mr-2"
+                        srcSet=""
+                        style={{ color: "transparent" }}
+                      />
                       <span className="font-normal text-base leading-6 tracking-tight">
-                        "21" "%"
+                        Southeast Asian
                       </span>
                     </div>
-                
+                    <span className="font-normal text-base leading-6 tracking-tight">
+                      21%
+                    </span>
                   </div>
-                  <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer"></div>
-                  <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer"></div>
-                  <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer"></div>
-                  <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer"></div>
-                  <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer"></div>
+                  <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer">
+                    <div className="flex items-center gap-1">
+                      <img
+                        src=""
+                        alt="radio button"
+                        loading="lazy"
+                        width={12}
+                        height={12}
+                        decoding="async"
+                        data-nimg="1"
+                        className="w-[12px] h-[12px] mr-2"
+                        srcSet=""
+                        style={{ color: "transparent" }}
+                      />
+                      <span className="font-normal text-base leading-6 tracking-tight">
+                        Black
+                      </span>
+                    </div>
+                    <span className="font-normal text-base leading-6 tracking-tight">
+                      13%
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer">
+                    <div className="flex items-center gap-1">
+                      <img
+                        src=""
+                        alt="radio button"
+                        loading="lazy"
+                        width={12}
+                        height={12}
+                        decoding="async"
+                        data-nimg="1"
+                        className="w-[12px] h-[12px] mr-2"
+                        srcSet=""
+                        style={{ color: "transparent" }}
+                      />
+                      <span className="font-normal text-base leading-6 tracking-tight">
+                        East Asian
+                      </span>
+                    </div>
+                    <span className="font-normal text-base leading-6 tracking-tight">
+                      "8%
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer">
+                    <div className="flex items-center gap-1">
+                      <img
+                        src=""
+                        alt="radio button"
+                        loading="lazy"
+                        width={12}
+                        height={12}
+                        decoding="async"
+                        data-nimg="1"
+                        className="w-[12px] h-[12px] mr-2"
+                        srcSet=""
+                        style={{ color: "transparent" }}
+                      />
+                      <span className="font-normal text-base leading-6 tracking-tight">
+                        South Asian
+                      </span>
+                    </div>
+                    <span className="font-normal text-base leading-6 tracking-tight">
+                      7%
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer">
+                    <div className="flex items-center gap-1">
+                      <img
+                        src=""
+                        alt="radio button"
+                        loading="lazy"
+                        width={12}
+                        height={12}
+                        decoding="async"
+                        data-nimg="1"
+                        className="w-[12px] h-[12px] mr-2"
+                        srcSet=""
+                        style={{ color: "transparent" }}
+                      />
+                      <span className="font-normal text-base leading-6 tracking-tight">
+                        White
+                      </span>
+                    </div>
+                    <span className="font-normal text-base leading-6 tracking-tight">
+                      5%
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer">
+                    <div className="flex items-center gap-1">
+                      <img
+                        src=""
+                        alt="radio button"
+                        loading="lazy"
+                        width={12}
+                        height={12}
+                        decoding="async"
+                        data-nimg="1"
+                        className="w-[12px] h-[12px] mr-2"
+                        srcSet=""
+                        style={{ color: "transparent" }}
+                      />
+                      <span className="font-normal text-base leading-6 tracking-tight">
+                        Middle eastern
+                      </span>
+                    </div>
+                    <span className="font-normal text-base leading-6 tracking-tight">
+                      0%
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="pt-4 md:pt-[37px] pb-6 bg-white sticky bottom-40 md:static md:bottom-0 mb-8 md:mb-16"></div>
+            <div className="pt-4 md:pt-[37px] pb-6 bg-white sticky bottom-40 md:static md:bottom-0 mb-8 md:mb-16">
+              <div className="flex justify-between max-w-full mx-auto px-4 md:px-0">
+                <a href="/select">
+                  <BackButton />
+                </a>
+                <a href="/">
+                  <HomeButton />
+                </a>
+              </div>
+            </div>
           </div>
         </main>
       </div>
