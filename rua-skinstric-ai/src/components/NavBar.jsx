@@ -2,7 +2,11 @@ import React from "react";
 import LeftBracket from "../assets/Rectangle 2710.png";
 import RightBracket from "../assets/Rectangle 2711.png";
 
+import { useLocation } from "react-router-dom";
+
 const NavBar = () => {
+  const location = useLocation();
+
   return (
     <div className="flex flex-row h-[64px] w-full justify-between py-3 mb-3 relative z-[1000]">
       <div className="flex flex-row pt-1 scale-75 justify-center items-center ">
@@ -23,10 +27,31 @@ const NavBar = () => {
           style={{ Color: "transparent" }}
           src={LeftBracket}
         />
-        <p className="text-[#1a1b1cB3] text-opacity-70 font-semibold text-sm ml-1.5 mr-1.5">
-          {" "}
-          INTRO
-        </p>
+
+        <nav>
+          {location.pathname === "/select" ? (
+            <p className="text-[#1a1b1cB3] text-opacity-70 font-semibold text-sm ml-1.5 mr-1.5">
+              {" "}
+              ANALYSIS
+            </p>
+          ) : location.pathname === "/summary" ? (
+            <p className="text-[#1a1b1cB3] text-opacity-70 font-semibold text-sm ml-1.5 mr-1.5">
+              {" "}
+              ANALYSIS
+            </p>
+          ) : location.pathname === "/capture" ? (
+            <p className="text-[#1a1b1cB3] text-opacity-70 font-semibold text-sm ml-1.5 mr-1.5">
+              {" "}
+              ANALYSIS
+            </p>
+          ) : (
+            <p className="text-[#1a1b1cB3] text-opacity-70 font-semibold text-sm ml-1.5 mr-1.5">
+              {" "}
+              INTRO
+            </p>
+          )}
+        </nav>
+
         <img
           alt="left-bracket"
           loading="lazy"

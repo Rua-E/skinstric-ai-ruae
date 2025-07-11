@@ -20,7 +20,7 @@ function App() {
           <Route path="/Layer011" element={<Layer011 />} />
           <Route path="/select" element={<Layer012 />} />
           <Route path="/summary" element={<Layer013 />} />
-          <Route path="/camera/capture" element={<Layer009 />} />
+          <Route path="/capture" element={<Layer009 />} />
         </Routes>
       </Router>
     </>

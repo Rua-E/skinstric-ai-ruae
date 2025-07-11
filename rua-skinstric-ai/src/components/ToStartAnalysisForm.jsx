@@ -25,15 +25,6 @@ function ToStartAnalysisForm() {
         action="javascript:throw new Error('React form unexpectedly submitted.')"
       >
         <div className="flex flex-col items-center"></div>
-        {/* <input
-          id="newInput"
-          className="text-5xl sm:text-6xl font-light text-center bg-transparent border-b border-black focus:outline-none appearance-none w-[375px] sm:w-[375px] pt-1 tracking-[-0.07em] leading-[64px] text-[#1A1B1C] z-10"
-          placeholder="Introduce Yourself"
-          type="text"
-          autoComplete="off"
-          autoFocus="name"
-        /> */}
-
         <input
           id="newInput"
           className="text-5xl sm:text-6xl font-light text-center bg-transparent border-b border-black focus:outline-none appearance-none w-[375px] sm:w-[375px] pt-1 tracking-[-0.07em] leading-[64px] text-[#1A1B1C] z-10"
@@ -62,9 +53,7 @@ function ToStartAnalysisForm() {
           autoFocus="name"
           ref={displayInfoRef}
           placeholder="Country"
-          onKeyDown={(event) => {
-            /* Handle the last input's enter key, perhaps submit the form */
-          }}
+          onKeyDown={handleLastInputKeyDown}
         />
 
         <button type="submit" className="sr-only">
