@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import LargeRectangle from "../../assets/Rectangle 2778.png";
 import MediumRectangle from "../../assets/Rectangle 2780.png";
 import SmallRectangle from "../../assets/Rectangle 2779.png";
@@ -8,7 +8,46 @@ import GalleryIcon from "../../assets/gallery-icon.png";
 import GalleryLine from "../../assets/Group 39690 (1).png";
 import BackButton from "../BackButton";
 
-const Layer005 = () => {
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+
+function Layer005() {
+  // const [imageSrc, setImageSrc] = useState(null);
+  // const navigate = useNavigate();
+
+  // const handleFileChange = (event) => {
+  //   const file = event.target.files[0];
+  //   if (!file) return;
+
+  //   const reader = new FileReader();
+  //   reader.onload = (event) => {
+  //     const base64 = event.target.result;
+  //     setImageSrc(base64);
+  //   };
+  //   reader.readAsDataURL(file);
+  // };
+
+  // const handleImageClick = () => {
+  //   if (imageSrc) {
+  //     sessionStorage.setItem("uploadedImage", imageSrc);
+  //     navigate("/select");
+  //   }
+  // };
+
+  const fileInputRef = useRef(null);
+
+  const handleClick = () => {
+    // OPEN FILE PICKER
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      console.log("Selected file", file);
+    }
+  };
+
   return (
     <>
       <div className="min-h-[92vh] flex flex-col bg-white relative md:pt-[64px] justify-center">
@@ -54,6 +93,8 @@ const Layer005 = () => {
               src={SmallRectangle}
               style={{ color: "transparent" }}
             />
+
+            {/* TAKE PICTURES */}
             <div className="absolute inset-0 flex flex-col items-center justify-center">
               <img
                 alt="Camara Icon"
@@ -62,7 +103,7 @@ const Layer005 = () => {
                 height={136}
                 decoding="async"
                 data-nimg="1"
-                className="absolute w-[100px] h-[100px] md:w-[136px] md:h-[136px] hover:scale-108 duration-700 ease-in-out cursor-pointer"
+                className="absolute w-[100px] h-[100px] md:w-[136px] md:h-[136px] hover:scale-105 duration-700 ease-in-out cursor-pointer"
                 src={CameraIcon}
               />
               <div className="absolute bottom-[1%] right-[90px] md:top-[30.9%] md:right-[-12px] translate-y-[-20px]">
@@ -78,8 +119,9 @@ const Layer005 = () => {
                   height={59}
                   decoding="async"
                   data-nimg="1"
-                  src={ScanLine}
                   className="absolute hidden md:block md:right-[143px] md:top-[20px]"
+                  src={ScanLine}
+                  srcSet={`${ScanLine} 1x, ${ScanLine} 2x`}
                   style={{ color: "transparent" }}
                 />
               </div>
@@ -123,7 +165,24 @@ const Layer005 = () => {
               src={SmallRectangle}
               style={{ color: "transparent" }}
             />
+
+            {/* UPLOADING PICTURE */}
             <div className="absolute inset-0 flex flex-col items-center justify-center">
+              {/* <input
+                type="file"
+                accept="image/*"
+                onChange={handleFileChange}
+                className="absolute w-fill h-full opacity-0 cursor-pointer"
+              />
+              {imageSrc && (
+                <img
+                  src="imageSrc"
+                  alt="Uploaded preview"
+                  onClick={handleImageClick}
+                  className="cursor-pointer"
+                />
+              )} */}
+
               <img
                 alt="Photo Upload Icon"
                 loading="lazy"
@@ -131,10 +190,19 @@ const Layer005 = () => {
                 height={136}
                 decoding="async"
                 data-nimg="1"
-                className="absolute w-[100px] h-[100px] md:w-[136px] md:h-[136px] hover:scale-108 duration-700 ease-in-out cursor-pointer"
-                //   srcSet="LargeRectangle 1x, LargeRectangle 2x"
+                className="absolute w-[100px] h-[100px] md:w-[136px] md:h-[136px] hover:scale-105 duration-700 ease-in-out cursor-pointer z-0"
+                srcSet={`${GalleryIcon} 1x, ${GalleryIcon} 2x`}
                 src={GalleryIcon}
+                onClick={handleClick}
+              ></img>
+              <input
+                type="file"
+                accept="image/*"
+                ref={fileInputRef}
+                onChange={handleFileChange}
+                className="h-40 w-40 absolute invisible z-1"
               />
+
               <div className="absolute top-[75%] md:top-[70%] md:left-[17px] translate-y-[-10px]">
                 <p className="text-[12px] md:text-[14px] font-normal mt-2 leading-[24px] text-right">
                   ALLOW A.I
@@ -144,8 +212,8 @@ const Layer005 = () => {
                 <img
                   alt="Gallery Line"
                   loading="lazy"
-                  width={66}
-                  height={59}
+                  width={66.33}
+                  height={59.37}
                   decoding="async"
                   data-nimg="1"
                   src={GalleryLine}
@@ -172,6 +240,6 @@ const Layer005 = () => {
       </div>
     </>
   );
-};
+}
 
 export default Layer005;
