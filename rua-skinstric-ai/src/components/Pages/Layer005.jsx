@@ -95,8 +95,8 @@ const Layer005 = () => {
               decoding="async"
               data-nimg="1"
               className="absolute w-[270px] h-[270px] md:w-[482px] md:h-[482px] animate-spin-slow rotate-205"
+              srcSet={`${LargeRectangle} 1x, ${LargeRectangle} 2x`}
               src={LargeRectangle}
-              //   srcSet="LargeRectangle 1x, LargeRectangle 2x"
               style={{ color: "transparent" }}
             />
             <img
@@ -107,8 +107,8 @@ const Layer005 = () => {
               decoding="async"
               data-nimg="1"
               className="absolute w-[230px] h-[230px] md:w-[444.34px] md:h-[444.34px] animate-spin-slower rotate-195"
+              srcSet={`${MediumRectangle} 1x, ${MediumRectangle} 2x`}
               src={MediumRectangle}
-              //   srcSet="LargeRectangle 1x, LargeRectangle 2x"
               style={{ color: "transparent" }}
             />
             <img
@@ -119,8 +119,8 @@ const Layer005 = () => {
               decoding="async"
               data-nimg="1"
               className="absolute w-[190px] h-[190px] md:w-[405.18px] md:h-[405.18px] animate-spin-slowest rotate-190"
+              srcSet={`${SmallRectangle} 1x, ${SmallRectangle} 2x`}
               src={SmallRectangle}
-              //   srcSet="LargeRectangle 1x, LargeRectangle 2x"
               style={{ color: "transparent" }}
             />
             <div className="absolute inset-0 flex flex-col items-center justify-center">
@@ -155,7 +155,10 @@ const Layer005 = () => {
               </div>
             </div>
           </div>
-          <div className="absolute top-[75px] right-7 md:top-[-50px] md:right-8 transition-opacity duration-300 opacity-100"></div>
+          <div className="absolute top-[75px] right-7 md:top-[-50px] md:right-8 transition-opacity duration-300 opacity-100">
+            <h1 className="text-xs md:text-sm font-normal mb-1">Preview</h1>
+            <div className="w-24 h-24 md:w-32 md:h-32 border border-gray-300 overflow-hidden"></div>
+          </div>
           <input accept="image/*" className="hidden" type="file" />
         </div>
         <div className="pt-4 md:pt-0 pb-8 bg-white sticky md:static bottom-30.5 mb-0 md:mb-0">
