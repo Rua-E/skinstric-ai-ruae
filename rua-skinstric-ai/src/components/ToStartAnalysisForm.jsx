@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 
-const ToStartAnalysisForm = () => {
+// const ToStartAnalysisForm = () => {
+function ToStartAnalysisForm() {
   const [step, setStep] = useState(1);
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
+  const [prepareAnalysis, setPrepareAnalysis] = useState(true);
 
   const handleNext = () => {
     if (step === 1 && name.trim() === "") {
@@ -18,7 +20,6 @@ const ToStartAnalysisForm = () => {
   };
 
   const handleSubmit = async () => {
-
     // SAVE TO LOCAL STORAGE
     localStorage.setItem("name", name);
     localStorage.setItem("location", location);
@@ -39,29 +40,25 @@ const ToStartAnalysisForm = () => {
       if (!response.ok) throw new Error("Failed to submit data");
 
       alert("Submitted successfully!");
-      
     } catch (error) {
       console.error("Submission error:", error);
       alert("There was an error submitting the form.");
     }
-   
 
     const jsonResponse = {
       SUCCESS: `Added ${name} from ${location}`,
     };
     setResponse(jsonResponse);
-
-    useEffect(() => {
-     
-
-      const timer = setTimeout(() => {
-        setShowProgress(false);
-      
-      }, 3000);
-
-      return () => clearTimeout(timer);
-    }, []);
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setPrepareAnalysis(false);
+    }, 5000);
+
+    // CLEANUP TIMER ON UNMOUNT
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div>
@@ -109,8 +106,8 @@ const ToStartAnalysisForm = () => {
         )}
 
         {step === 3 && (
-          <div>
-          
+          <>
+            {prepareAnalysis ? (
               <div className="relative z-10">
                 <p className="text-lt text-gray-500 mb-2">
                   PREPARING YOUR ANALYSIS
@@ -121,7 +118,7 @@ const ToStartAnalysisForm = () => {
                   <div className="w-2 h-2 rounded-full bg-[#1A1B1C] animate-[bounce_1s_infinite_500ms] opacity-30"></div>
                 </div>
               </div>
-           
+            ) : (
               <div className="flex flex-col items-center gap-4 z-10">
                 <p className="text-2xl font-normal text-[#1A1B1C] tracking-wide">
                   Thank you!
@@ -130,12 +127,12 @@ const ToStartAnalysisForm = () => {
                   Proceed for the next step
                 </p>
               </div>
-        
-          </div>
+            )}
+          </>
         )}
       </form>
     </div>
   );
-};
+}
 
 export default ToStartAnalysisForm;
