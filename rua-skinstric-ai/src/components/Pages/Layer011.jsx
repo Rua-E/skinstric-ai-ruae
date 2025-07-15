@@ -12,7 +12,7 @@ const Layer011 = () => {
         <div className="absolute top-16 left-9 text-left">
           <p className="font-semibold text-xs">TO START ANALYSIS</p>
         </div>
-        <div className="relative flex flex-col items-center justify-center mb-40 w-full h-full">
+        <div className="relative flex flex-col items-center justify-center mb-10 mt-10 w-full h-full">
           <div className="relative z-10">
             <p className="text-lt text-gray-500 mb-2">
               PREPARING YOUR ANALYSIS
@@ -22,56 +22,43 @@ const Layer011 = () => {
               <div className="w-2 h-2 rounded-full bg-[#1A1B1C] animate-[bounce_1s_infinite_500ms] opacity-30"></div>
               <div className="w-2 h-2 rounded-full bg-[#1A1B1C] animate-[bounce_1s_infinite_500ms] opacity-30"></div>
             </div>
-
-            {/* <div className="flex flex-xol items-center gap-4 z-10">
-  <p className="text-2xl font-normal text-[#1A1B1C] tracking-wide">Thank you!</p>
-  <p className="text-lg text-gray-600">Proceed to the next Step</p>
-</div> */}
           </div>
           <img
             alt="Diamond Large"
             loading="lazy"
-            width={762}
-            height={762}
+            width={482}
+            height={482}
             decoding="async"
             data-nimg="1"
-            className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-1/2 h-[480px] w-[480px] md:w-[762px] md:h-[762px] animate-spin-slow rotate-190"
+            className="absolute w-[270px] h-[270px] md:w-[482px] md:h-[482px] animate-spin-slow rotate-205"
+            srcSet={`${LargeRectangle} 1x, ${LargeRectangle} 2x`}
             src={LargeRectangle}
-            //   srcSet={{LargeRectangle, 1x}, {LargeRectangle, 2x}}
             style={{ color: "transparent" }}
           />
           <img
             alt="Diamond Medium"
             loading="lazy"
-            width={682}
-            height={682}
+            width={444.34}
+            height={444.34}
             decoding="async"
             data-nimg="1"
-            className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-1/2 w-[400px] h-[400px] md:w-[682px] md:h-[682px] animate-spin-slower rotate-185"
+            className="absolute w-[230px] h-[230px] md:w-[444.34px] md:h-[444.34px] animate-spin-slower rotate-195"
+            srcSet={`${MediumRectangle} 1x, ${MediumRectangle} 2x`}
             src={MediumRectangle}
-            //   srcSet={{LargeRectangle, 1x}, {LargeRectangle, 2x}}
             style={{ color: "transparent" }}
           />
           <img
             alt="Diamond Small"
             loading="lazy"
-            width={602}
-            height={602}
+            width={405.18}
+            height={405.18}
             decoding="async"
             data-nimg="1"
-            className="absolute top-1/2 left-1/2 -translate-x-[50%] -translate-y-1/2 w-[320px] h-[320px] md:w-[602px] md:h-[602px] animate-spin-slowest"
+            className="absolute w-[190px] h-[190px] md:w-[405.18px] md:h-[405.18px] animate-spin-slowest rotate-190"
+            srcSet={`${SmallRectangle} 1x, ${SmallRectangle} 2x`}
             src={SmallRectangle}
-            //   srcSet={{LargeRectangle, 1x}, {LargeRectangle, 2x}}
             style={{ color: "transparent" }}
           />
-        </div>
-        <div className="absolute bottom-38.5 md:bottom-8 w-full flex justify-between md:px-9 px-13">
-          <a className="" label="Back" href="/">
-            <BackButton />
-          </a>
-          <a className="inline-block" href="/result">
-            <ProceedButton />
-          </a>
         </div>
       </div>
     </>

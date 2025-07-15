@@ -10,30 +10,9 @@ import BackButton from "../BackButton";
 
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Layer011 from "./Layer011";
 
 function Layer005() {
-  // const [imageSrc, setImageSrc] = useState(null);
-  // const navigate = useNavigate();
-
-  // const handleFileChange = (event) => {
-  //   const file = event.target.files[0];
-  //   if (!file) return;
-
-  //   const reader = new FileReader();
-  //   reader.onload = (event) => {
-  //     const base64 = event.target.result;
-  //     setImageSrc(base64);
-  //   };
-  //   reader.readAsDataURL(file);
-  // };
-
-  // const handleImageClick = () => {
-  //   if (imageSrc) {
-  //     sessionStorage.setItem("uploadedImage", imageSrc);
-  //     navigate("/select");
-  //   }
-  // };
-
   const fileInputRef = useRef(null);
 
   const handleClick = () => {
@@ -41,11 +20,22 @@ function Layer005() {
     fileInputRef.current.click();
   };
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       console.log("Selected file", file);
     }
+    if (!file) return;
+
+    setIsLoading(true);
+
+    // simulate image processing (send to backend)
+    setTimeout(() => {
+      setIsLoading(false);
+      alert("Image analyzed successfully!");
+    }, 2000);
   };
 
   return (
@@ -54,6 +44,14 @@ function Layer005() {
         <div className="absolute top-2 left-9 md:left-8 text-left">
           <p className="font-semibold text-xs md:text-sm">TO START ANALYSIS</p>
         </div>
+
+        {isLoading ? (
+          <div className="-mb-40 -mt-40">
+              <Layer011 /> 
+          </div>
+              
+              ) : (
+<div>
         <div className="flex-[0.4] md:flex-1 flex flex-col md:flex-row items-center xl:justify-center relative mb-0 md:mb-30 space-y-[-20px] md:space-y-0">
           <div className="relative md:absolute md:left-[55%] lg:left-[50%] xl:left-[40%] md:-translate-y-[0%] -translate-y-[1%] md:-translate-x-full flex flex-col items-center justify-center">
             <div className="w-[270px] h-[270px] md:w-[482px] md:h-[482px]"></div>
@@ -168,21 +166,6 @@ function Layer005() {
 
             {/* UPLOADING PICTURE */}
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              {/* <input
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-                className="absolute w-fill h-full opacity-0 cursor-pointer"
-              />
-              {imageSrc && (
-                <img
-                  src="imageSrc"
-                  alt="Uploaded preview"
-                  onClick={handleImageClick}
-                  className="cursor-pointer"
-                />
-              )} */}
-
               <img
                 alt="Photo Upload Icon"
                 loading="lazy"
@@ -202,6 +185,25 @@ function Layer005() {
                 onChange={handleFileChange}
                 className="h-40 w-40 absolute invisible z-1"
               />
+
+              {/* {isLoading && (
+              <Layer011 /> */}
+
+                {/* // <div className="w-screen h-screen bg-white z-10">
+                //   <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
+                //     <div className="relative z-10">
+                //       <p className="text-lt text-gray-500 mb-2">
+                //         PROCESSING SUBMISSION
+                //       </p>
+                //       <div className="flex items-center justify-center space-x-4 py-8">
+                //         <div className="w-2 h-2 rounded-full bg-[#1A1B1C] animate-[bounce_1s_infinite_250ms] opacity-30"></div>
+                //         <div className="w-2 h-2 rounded-full bg-[#1A1B1C] animate-[bounce_1s_infinite_500ms] opacity-30"></div>
+                //         <div className="w-2 h-2 rounded-full bg-[#1A1B1C] animate-[bounce_1s_infinite_500ms] opacity-30"></div>
+                //       </div>
+                //     </div>
+                //   </div>
+                // </div>
+              // )} */}
 
               <div className="absolute top-[75%] md:top-[70%] md:left-[17px] translate-y-[-10px]">
                 <p className="text-[12px] md:text-[14px] font-normal mt-2 leading-[24px] text-right">
@@ -229,7 +231,17 @@ function Layer005() {
           </div>
           <input accept="image/*" className="hidden" type="file" />
         </div>
-        <div className="pt-4 md:pt-0 pb-8 bg-white sticky md:static bottom-30.5 mb-0 md:mb-0">
+
+</div>
+
+        )}
+
+
+
+
+
+
+        <div className=" md:pt-0 pb-8 bg-white sticky md:static bottom-30.5 mb-0 md:mb-0">
           <div className="absolute bottom-8 w-full flex justify-between md:px-9 px-13">
             <a className="relative" label="Back" href="/testing">
               <BackButton />
