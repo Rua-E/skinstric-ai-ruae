@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const ToStartAnalysisForm = () => {
   const [step, setStep] = useState(1);
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
+  const [showProgress, setShowProgress] = useState(true);
+  //   const [isSubmitting, setIsSubmitting] = useState(false);
+  //   const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleNext = () => {
     if (step === 1 && name.trim() === "") {
@@ -18,6 +21,9 @@ const ToStartAnalysisForm = () => {
   };
 
   const handleSubmit = async () => {
+    // LOADING PAGE
+    // setIsSubmitting(true);
+
     // SAVE TO LOCAL STORAGE
     localStorage.setItem("name", name);
     localStorage.setItem("location", location);
@@ -38,10 +44,70 @@ const ToStartAnalysisForm = () => {
       if (!response.ok) throw new Error("Failed to submit data");
 
       alert("Submitted successfully!");
+      // SHOW LOADING PAGE
+      //   setIsSubmitted(true);
     } catch (error) {
       console.error("Submission error:", error);
       alert("There was an error submitting the form.");
     }
+    // finally {
+    //   setIsSubmitting(false);
+    // }
+
+    // if (isSubmitting) {
+    //   return (
+    //     <>
+    //       <div className="relative z-10">
+    //         <p className="text-lt text-gray-500 mb-2">
+    //           PREPARING YOUR ANALYSIS
+    //         </p>
+    //         <div className="flex items-center justify-center space-x-4 py-8">
+    //           <div className="w-2 h-2 rounded-full bg-[#1A1B1C] animate-[bounce_1s_infinite_250ms] opacity-30"></div>
+    //           <div className="w-2 h-2 rounded-full bg-[#1A1B1C] animate-[bounce_1s_infinite_500ms] opacity-30"></div>
+    //           <div className="w-2 h-2 rounded-full bg-[#1A1B1C] animate-[bounce_1s_infinite_500ms] opacity-30"></div>
+    //         </div>
+    //       </div>
+    //     </>
+    //   );
+    // }
+
+    // if (isSubmitted) {
+    //   return (
+    //     <>
+    //       <div className="flex flex-col items-center gap-4 z-10">
+    //         <p className="text-2xl font-normal text-[#1A1B1C] tracking-wide">
+    //           Thank you!
+    //         </p>
+    //         <p className="text-lg text-gray-600">Proceed for the next step</p>
+    //       </div>
+    //     </>
+    //   );
+    // }
+
+    // function AnalysisLoading() {
+    //   const [showProgress, setShowProgress] = useState(true);
+
+    //   useEffect(() => {
+    //     const timer = setTimeout(() => {
+    //       setShowProgress(false);
+    //     }, 5000);
+
+    //     return () => clearTimeout(timer);
+    //   }, []);
+    // }
+
+    const jsonResponse = {
+      SUCCESS: `Added ${name} from ${location}`,
+    };
+    setResponse(jsonResponse);
+
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setShowProgress(false);
+      }, 3000);
+
+      return () => clearTimeout(timer);
+    }, []);
   };
 
   return (
@@ -51,6 +117,9 @@ const ToStartAnalysisForm = () => {
 
         {step === 1 && (
           <>
+            <p className="text-sm text-gray-400 tracking-wider uppercase mb-1">
+              CLICK TO TYPE
+            </p>
             <input
               className="text-5xl sm:text-6xl font-light text-center bg-transparent border-b border-black focus:outline-none appearance-none w-[460px] sm:w-[460px] pt-1 tracking-[-0.07em] leading-[64px] text-[#1A1B1C] z-10"
               type="text"
@@ -68,6 +137,9 @@ const ToStartAnalysisForm = () => {
 
         {step === 2 && (
           <>
+            <p className="text-sm text-gray-400 tracking-wider uppercase mb-1">
+              CLICK TO TYPE
+            </p>
             <input
               className="text-5xl sm:text-6xl font-light text-center bg-transparent border-b border-black focus:outline-none appearance-none w-[460px] sm:w-[460px] pt-1 tracking-[-0.07em] leading-[64px] text-[#1A1B1C] z-10"
               type="text"
@@ -83,7 +155,31 @@ const ToStartAnalysisForm = () => {
           </>
         )}
 
-        {step === 3 && <>{handleSubmit()}</>}
+        {step === 3 && (
+          <div>
+            {showProgress ? (
+              <div className="relative z-10">
+                <p className="text-lt text-gray-500 mb-2">
+                  PREPARING YOUR ANALYSIS
+                </p>
+                <div className="flex items-center justify-center space-x-4 py-8">
+                  <div className="w-2 h-2 rounded-full bg-[#1A1B1C] animate-[bounce_1s_infinite_250ms] opacity-30"></div>
+                  <div className="w-2 h-2 rounded-full bg-[#1A1B1C] animate-[bounce_1s_infinite_500ms] opacity-30"></div>
+                  <div className="w-2 h-2 rounded-full bg-[#1A1B1C] animate-[bounce_1s_infinite_500ms] opacity-30"></div>
+                </div>
+              </div>
+            ) : (
+              <div className="flex flex-col items-center gap-4 z-10">
+                <p className="text-2xl font-normal text-[#1A1B1C] tracking-wide">
+                  Thank you!
+                </p>
+                <p className="text-lg text-gray-600">
+                  Proceed for the next step
+                </p>
+              </div>
+            )}
+          </div>
+        )}
       </form>
     </div>
   );
