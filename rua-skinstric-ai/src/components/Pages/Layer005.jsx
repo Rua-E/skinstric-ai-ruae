@@ -32,15 +32,13 @@ function Layer005() {
     const file = event.target.files[0];
 
     if (!file) return;
-    // if (file) {
-    //   console.log("Selected file", file);
-    // } if (!file) return;
 
     setIsLoading(true);
 
     const reader = new FileReader();
     reader.onloadend = async () => {
       const base64String = reader.result.split(",")[1];
+      console.log("Uploading base64 image string:", base64String.slice(0, 100));
       setPreview(reader.result);
 
       try {
@@ -54,36 +52,46 @@ function Layer005() {
         });
 
         const result = await response.json();
+        console.log("Full API response:", result);
 
-        if (result?.message?.includes("SUCCESS")) {
+        if (result?.success && result?.data) {
+          const { age, sex, race } = result.data;
+
+          const demographics = {
+            age,
+            gender: sex,
+            race,
+          };
+
+          console.log("Race:", race);
+          console.log("Age:", age);
+          console.log("Sex:", sex);
+
+          localStorage.setItem("demographicData", JSON.stringify(demographics));
+          console.log(
+            "Saved demographicData:",
+            localStorage.getItem("demographicData")
+          );
+
+          setIsLoading(false);
           alert("Image analyzed successfully!");
-          localStorage.setItem("demographicData", JSON.stringify(data.data));
+
           navigate("/select");
         }
       } catch (error) {
+        setIsLoading(false);
         console.error("Upload error:", error);
         alert("An error occurred. Try again.");
       }
-
-      // TRIGGER ONLOADEND
     };
     reader.readAsDataURL(file);
 
-    // if (file && file.type.startswith("image/")) {
-    //   const previewURL = URL.createObjectURL(file);
-    //   setPreview(previewURL);
-    // } else {
-    //   alert("Please select a valid image file.");
-    // }
-
     // simulate image processing (send to backend)
-    setTimeout(() => {
-      setIsLoading(false);
-      alert("Image analyzed successfully!");
-      navigate("/select");
-      // // Navigate to next page after clicking 'ok' on alert
-      // navigate("/select");
-    }, 2000);
+    // setTimeout(() => {
+    //   alert("Image analyzed successfully!");
+    //   navigate("/select");
+
+    // }, 2000);
   };
 
   const togglePopup = () => setIsOpen(!isOpen);
@@ -196,10 +204,16 @@ function Layer005() {
                   <>
                     <div className="absolute md:top-[43%] md:left-[360px] w-[352px] z-50">
                       <div className="bg-[#1A1B1C] pt-4 pb-2">
-                        <h2 className="text-[#FCFCFC] text-base font-semibold mb-12 leading-[24px] pl-4">ALLOW A.I. TO ACCESS YOUR CAMERA</h2>
+                        <h2 className="text-[#FCFCFC] text-base font-semibold mb-12 leading-[24px] pl-4">
+                          ALLOW A.I. TO ACCESS YOUR CAMERA
+                        </h2>
                         <div className="flex mt-4 border-t border-[#FCFCFC] pt-2 pl-40">
-                          <button className="px-7 md:translate-x-45 text-[#fcfcfca1] font-normal text-sm leading-4 tracking-tight cursor-pointer hover:text-gray-500">DENY</button>
-                          <button className="px-5 md:translate-x-45 text-[#FCFCFC] font-semibold text-sm leading-4 tracking-tight cursor-pointer hover:text-gray-300">ALLOW</button>
+                          <button className="px-7 md:translate-x-45 text-[#fcfcfca1] font-normal text-sm leading-4 tracking-tight cursor-pointer hover:text-gray-500">
+                            DENY
+                          </button>
+                          <button className="px-5 md:translate-x-45 text-[#FCFCFC] font-semibold text-sm leading-4 tracking-tight cursor-pointer hover:text-gray-300">
+                            ALLOW
+                          </button>
                         </div>
                       </div>
                     </div>

@@ -1,65 +1,46 @@
-import React, { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+
 import BackButton from "../BackButton";
 import HomeButton from "../HomeButton";
+
 import RadioButton from "../../assets/radio-button.png";
-import CircleProgress from "../CircleProgress.jsx"
-import { data } from "react-router-dom";
+import CircleProgress from "../CircleProgress";
 
-const Layer013 = (categoryData) => {
-  return Object.entries(categoryData)
-    .sort((a, b) => b[1] - a[1])
-    .map(([label, value]) => ({
-      label,
-      score: (value * 100).toFixed(2),
-    }));
-};
+const API_URL =
+  "https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseTwo";
 
-function formatCategory() {
-  const [data, setData] = useState(null);
-  const [actual, setActual] = useState({
-    race: null,
-    age: null,
-    gender: null,
-  });
+const Layer0131 = () => {
+  const [selectedRaceIndex, setSelectedRaceIndex] = useState(0);
+  const [selectedAgeIndex, setSelectedAgeIndex] = useState(0);
+  const [selectedSexIndex, setSelectedSexIndex] = useState(0);
+  const [activeSection, setActiveSection] = useState("RACE");
 
-  const Layer013 = (categoryData) => {
-    return Object.entries(categoryData)
-      .sort((a, b) => b[1] - a[1])
-      .map(([label, value]) => ({
-        label,
-        score: (value * 100).toFixed(2),
-      }));
-  };
+  const raceFields = [
+    { label: "Latino Hispanic", value: "43%" },
+    { label: "Southeast Asian", value: "21%" },
+    { label: "Black", value: "13%" },
+    { label: "East Asian", value: "8%" },
+    { label: "South Asian", value: "7%" },
+    { label: "White", value: "5%" },
+    { label: "Middle eastern", value: "0%" },
+  ];
 
-  useEffect(() => {
-    const savedData = localStorage.getItem("demographicData");
-    if (savedData) {
-      const parsed = JSON.parse(savedData);
-      setData(parsed);
+  const ageFields = [
+    { label: "0–2", value: "1%" },
+    { label: "3–9", value: "6%" },
+    { label: "10–19", value: "0%" },
+    { label: "20–29", value: "1%" },
+    { label: "30-39", value: "1%" },
+    { label: "40-49", value: "9%" },
+    { label: "50-59", value: "5%" },
+    { label: "60-69", value: "47%" },
+    { label: "70+", value: "27%" },
+  ];
 
-      // SET HIGHEST SCORE AS DEFAULT
-      setActual({
-        race: getTop(parsed.race),
-        age: getTop(parsed.age),
-        gender: getTop(parsed.gender),
-      });
-    }
-  }, []);
-
-  const getTop = (obj) => {
-    return Object.entries(obj).sort((a, b) => b[1] - a[1])[0][0];
-  };
-
-  const handleClick = (type, label) => {
-    setActual((prev) => ({
-      ...prev,
-      [type]: label,
-    }));
-  };
-
-  const race = formatCategory(data.race);
-  const age = formatCategory(data.age);
-  const gender = formatCategory(data.gender);
+  const sexFields = [
+    { label: "Male", value: "60%" },
+    { label: "Female", value: "40%" },
+  ];
 
   return (
     <>
@@ -79,238 +60,249 @@ function formatCategory() {
             </div>
             <div className="grid md:grid-cols-[1.5fr_8.5fr_3.15fr] gap-4 mt-10 mb-40 md:gap-4 pb-0 md:pb-0 md:mb-0">
               <div className="bg-white-100 space-y-3 md:flex md:flex-col h-[62%]">
-                <div className="p-3 cursor-pointer bg-[#1A1B1C] text-white flex-1 flex flex-col justify-between hover:bg-[#1E1E12] border-t">
-                  {/* <p className="text-base font-semibold">{actual.race}</p> */}
+                <div
+                  className={`p-3 cursor-pointer flex-1 flex flex-col justify-between border-t border-black hover:bg-[#1E1E12]  ${
+                    activeSection === "RACE"
+                      ? "bg-[#1A1B1C] text-white"
+                      : "bg-[#F3F3F4] text-black hover:bg-gray-200"
+                  }`}
+                  onClick={() => setActiveSection("RACE")}
+                >
+                  <p className="text-base font-semibold">
+                    {selectedRaceIndex !== null
+                      ? raceFields[selectedRaceIndex].label
+                      : " "}
+                  </p>
                   <h4 className="text-base font-semibold mb-1">RACE</h4>
                 </div>
-                <div className="p-3 cursor-pointer bg-[#F3F3F4] flex-1 flex flex-col justify-between hover:bg-[#1E1E1E2] border-t">
-                  {/* <p className="text-base font-semibold">{actual.age}+</p> */}
+                <div
+                  className={`p-3 cursor-pointer flex-1 flex flex-col justify-between border-t border-black hover:bg-[#1E1E12] ${
+                    activeSection === "AGE"
+                      ? "bg-[#1A1B1C] text-white"
+                      : "bg-[#F3F3F4] text-black hover:bg-gray-200"
+                  }`}
+                  onClick={() => setActiveSection("AGE")}
+                >
+                  <p className="text-base font-semibold">
+                    {selectedAgeIndex !== null
+                      ? ageFields[selectedAgeIndex].label
+                      : " "}
+                  </p>
                   <h4 className="text-base font-semibold mb-1">AGE</h4>
                 </div>
-                <div className="p-3 cursor-pointer bg-[#F3F3F4] flex-1 flex flex-col justify-between hover:bg-[#1E1E1E2] border-t">
-                  {/* <p className="text-base font-semibold">{actual.gender}</p> */}
+                <div
+                  className={`p-3 cursor-pointer flex-1 flex flex-col justify-between border-t border-black hover:bg-[#1E1E12] ${
+                    activeSection === "SEX"
+                      ? "bg-[#1A1B1C] text-white"
+                      : "bg-[#F3F3F4] text-black hover:bg-gray-200"
+                  }`}
+                  onClick={() => setActiveSection("SEX")}
+                >
+                  <p className="text-base font-semibold">
+                    {selectedSexIndex !== null
+                      ? sexFields[selectedSexIndex].label
+                      : " "}
+                  </p>
                   <h4 className="text-base font-semibold mb-1">SEX</h4>
                 </div>
               </div>
-              <div className="relative bg-gray-100 p-4 flex flex-col items-center justify-center md:h-[57vh] md:border-t">
-                {/* <p className="hidden md:block md:absolute text-[40px] mb-2 left-5 top-2">
-                  {actual.race}
-                </p> */}
+              <div className="relative bg-gray-100 p-4 flex flex-col items-center justify-center md:h-[57vh] border-t border-black md:border-t">
+                <p className="hidden md:block md:absolute text-[40px] mb-2 left-5 top-2">
+                  {activeSection === "RACE" && selectedRaceIndex !== null
+                    ? raceFields[selectedRaceIndex].label
+                    : activeSection === "AGE" && selectedAgeIndex !== null
+                    ? ageFields[selectedAgeIndex].label
+                    : activeSection === "SEX" && selectedSexIndex !== null
+                    ? sexFields[selectedSexIndex].label
+                    : " "}
+                </p>
 
-                
-                {/* <div className="relative md:absolute w-full max-w-[384px] aspect-square mb-4 md:right-5 md:bottom-2">
-                  <div
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      maxHeight: "384px",
-                      position: "relative",
-                      transform: "scale(1)",
-                      transformOrigin: "center",
-                      //   center
-                    }}
-                  >
-                    <svg
-                      className="CircularProgressbar text-[#1A1B1C]"
-                      viewBox="0 0 100 100"
-                      data-test-id="CircularProgressbar"
-                    >
-                      <path></path>
-                      <path></path>
-                    </svg>
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <p className="text-3xl md:text-[40px] font-normal">
-                        {actual.score}
-                        <span className="absolute text-xl md:text-3xl">%</span>
-                      </p>
-                    </div>
-                  </div>
-                </div> */}
-                <CircleProgress />
+                <div className="absolute bottom-4 right-4 w-[384px] h-[384px]">
+                  <CircleProgress
+                    percent={
+                      activeSection === "RACE" && selectedRaceIndex !== null
+                        ? parseInt(
+                            raceFields[selectedRaceIndex].value.replace("%", "")
+                          )
+                        : activeSection === "AGE" && selectedAgeIndex !== null
+                        ? parseInt(
+                            ageFields[selectedAgeIndex].value.replace("%", "")
+                          )
+                        : activeSection === "SEX" && selectedSexIndex !== null
+                        ? parseInt(
+                            sexFields[selectedSexIndex].value.replace("%", "")
+                          )
+                        : 0
+                    }
+                  />
+                </div>
+
                 <p className="md:absolute text-xs text-[#A0A4AB] md:text-sm lg:text-base font-normal mb-1 leading-[24px] md:bottom-[-15%] md:left-[22%] lg:left-[30%] xl:left-[40%] rxl:left-[45%]">
                   If A.I. estimate is wrong, select the correct one
                 </p>
               </div>
-              <div className="bg-gray-100 pt-4 pb-4 md:border-t">
-                <div className="space-y-0">
-                  <div className="flex justify-between px-4">
-                    <h4 className="text-base leading-[24px] tracking-tight font-medium mb:2">
-                      RACE
-                    </h4>
-                    <h4 className="text-base leading-[24px] tracking-tight font-medium mb-2">
-                      A.I. CONFIDENCE
-                    </h4>
-                  </div>
 
-                  {/* <ul className="mt-1">
-                    {race.map((item) => (
-                      <li
-                        key={item.label}
-                        className={`cursor-pointer hover:bg-gray-500 ${
-                          actual.race === item.label ? "bg-black" : " "
-                        }`}
-                        onClick={() => handleClick("race", item.label)}
-                      >
-                        <div className="flex items-center justify-between h-[48px] px-4 cursor-pointer bg-[#1A1B1C] text-white hover:bg-black">
-                          <div className="flex items-center gap-1">
-                            <img
-                              src={RadioButton}
-                              alt="radio button"
-                              loading="lazy"
-                              width={12}
-                              height={12}
-                              decoding="async"
-                              data-nimg="1"
-                              className="w-[12px] h-[12px] mr-2"
-                              srcSet=""
-                              style={{ color: "transparent" }}
-                            />
+              <div className="bg-gray-100 pt-4 pb-4 border-t border-black md:border-t">
+                {/* RACE */}
+                {activeSection === "RACE" && (
+                  <div className="space-y-0">
+                    <div className="flex justify-between px-4">
+                      <h4 className="text-base leading-[24px] tracking-tight font-medium mb:2">
+                        RACE
+                      </h4>
+                      <h4 className="text-base leading-[24px] tracking-tight font-medium mb-2">
+                        A.I. CONFIDENCE
+                      </h4>
+                    </div>
+                    <div className="space-y-2">
+                      {raceFields.map((field, index) => {
+                        const isSelected = selectedRaceIndex === index;
 
-                            <span className="font-normal text-base leading-6 tracking-tight">
-                              {item.label}
+                        return (
+                          <div
+                            key={field.label}
+                            onClick={() => setSelectedRaceIndex(index)}
+                            className={`flex items-center justify-between h-[48px] px-4 cursor-pointer transition-colors duration-200 
+            ${isSelected ? "bg-black" : "hover:bg-[#E1E1E1] bg-transparent"}
+          `}
+                          >
+                            <div className="flex items-center gap-1">
+                              <img
+                                src={RadioButton}
+                                alt="radio button"
+                                className={`w-[12px] h-[12px] mr-2 ${
+                                  isSelected ? "invert brightness-0" : ""
+                                }`}
+                              />
+                              <span
+                                className={`font-normal text-base leading-6 tracking-tight ${
+                                  isSelected ? "text-white" : "text-black"
+                                }`}
+                              >
+                                {field.label}
+                              </span>
+                            </div>
+                            <span
+                              className={`font-normal text-base leading-6 tracking-tight ${
+                                isSelected ? "text-white" : "text-black"
+                              }`}
+                            >
+                              {field.value}
                             </span>
                           </div>
-                          <span className="font-normal text-base leading-6 tracking-tight">
-                            {item.score}%
-                          </span>
-                        </div>
-                      </li>
-                    ))}
-                  </ul> */}
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
+                {/* AGE */}
+                {activeSection === "AGE" && (
+                  <div className="space-y-0">
+                    <div className="flex justify-between px-4">
+                      <h4 className="text-base leading-[24px] tracking-tight font-medium mb:2">
+                        AGE
+                      </h4>
+                      <h4 className="text-base leading-[24px] tracking-tight font-medium mb-2">
+                        A.I. CONFIDENCE
+                      </h4>
+                    </div>
+                    <div className="space-y-2">
+                      {ageFields.map((field, index) => {
+                        const isSelected = selectedAgeIndex === index;
 
-                  <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer">
-                    <div className="flex items-center gap-1">
-                      <img
-                        src={RadioButton}
-                        alt="radio button"
-                        loading="lazy"
-                        width={12}
-                        height={12}
-                        decoding="async"
-                        data-nimg="1"
-                        className="w-[12px] h-[12px] mr-2"
-                        srcSet=""
-                        style={{ color: "transparent" }}
-                      />
-                      <span className="font-normal text-base leading-6 tracking-tight">
-                        Southeast Asian
-                      </span>
+                        return (
+                          <div
+                            key={field.label}
+                            onClick={() => setSelectedAgeIndex(index)}
+                            className={`flex items-center justify-between h-[48px] px-4 cursor-pointer transition-colors duration-200 ${
+                              isSelected
+                                ? "bg-black"
+                                : "hover:bg-[#E1E1E1] bg-transparent"
+                            }`}
+                          >
+                            <div className="flex items-center gap-1">
+                              <img
+                                src={RadioButton}
+                                alt="radio button"
+                                className={`w-[12px] h-[12px] mr-2 ${
+                                  isSelected ? "invert brightness-0" : ""
+                                }`}
+                              />
+                              <span
+                                className={`font-normal text-base leading-6 tracking-tight ${
+                                  isSelected ? "text-white" : "text-black"
+                                }`}
+                              >
+                                {field.label}
+                              </span>
+                            </div>
+                            <span
+                              className={` ${
+                                isSelected ? "text-white" : "text-black"
+                              }`}
+                            >
+                              {field.value}
+                            </span>
+                          </div>
+                        );
+                      })}
                     </div>
-                    <span className="font-normal text-base leading-6 tracking-tight">
-                      21%
-                    </span>
                   </div>
-                  <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer">
-                    <div className="flex items-center gap-1">
-                      <img
-                        src={RadioButton}
-                        alt="radio button"
-                        loading="lazy"
-                        width={12}
-                        height={12}
-                        decoding="async"
-                        data-nimg="1"
-                        className="w-[12px] h-[12px] mr-2"
-                        srcSet=""
-                        style={{ color: "transparent" }}
-                      />
-                      <span className="font-normal text-base leading-6 tracking-tight">
-                        Black
-                      </span>
+                )}
+                {/* SEX */}
+                {activeSection === "SEX" && (
+                  <div className="space-y-0">
+                    <div className="flex justify-between px-4">
+                      <h4 className="text-base leading-[24px] tracking-tight font-medium mb:2">
+                        SEX
+                      </h4>
+                      <h4 className="text-base leading-[24px] tracking-tight font-medium mb-2">
+                        A.I. CONFIDENCE
+                      </h4>
                     </div>
-                    <span className="font-normal text-base leading-6 tracking-tight">
-                      13%
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer">
-                    <div className="flex items-center gap-1">
-                      <img
-                        src={RadioButton}
-                        alt="radio button"
-                        loading="lazy"
-                        width={12}
-                        height={12}
-                        decoding="async"
-                        data-nimg="1"
-                        className="w-[12px] h-[12px] mr-2"
-                        srcSet=""
-                        style={{ color: "transparent" }}
-                      />
-                      <span className="font-normal text-base leading-6 tracking-tight">
-                        East Asian
-                      </span>
+                    <div className="space-y-2">
+                      {sexFields.map((field, index) => {
+                        const isSelected = selectedSexIndex === index;
+
+                        return (
+                          <div
+                            key={field.label}
+                            onClick={() => setSelectedSexIndex(index)}
+                            className={`flex items-center justify-between h-[48px] px-4 cursor-pointer transition-colors duration-200 ${
+                              isSelected
+                                ? "bg-black"
+                                : "hover:bg-[#E1E1E1] bg-transparent"
+                            }`}
+                          >
+                            <div className="flex items-center gap-1">
+                              <img
+                                src={RadioButton}
+                                alt="radio button"
+                                className={`w-[12px] h-[12px] mr-2 ${
+                                  isSelected ? "invert brightness-0" : ""
+                                }`}
+                              />
+                              <span
+                                className={`font-normal text-base leading-6 tracking-tight ${
+                                  isSelected ? "text-white" : "text-black"
+                                }`}
+                              >
+                                {field.label}
+                              </span>
+                            </div>
+                            <span
+                              className={`font-normal text-base leading-6 tracking-tight ${
+                                isSelected ? "text-white" : "text-black"
+                              }`}
+                            >
+                              {field.value}
+                            </span>
+                          </div>
+                        );
+                      })}
                     </div>
-                    <span className="font-normal text-base leading-6 tracking-tight">
-                      "8%
-                    </span>
                   </div>
-                  <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer">
-                    <div className="flex items-center gap-1">
-                      <img
-                        src={RadioButton}
-                        alt="radio button"
-                        loading="lazy"
-                        width={12}
-                        height={12}
-                        decoding="async"
-                        data-nimg="1"
-                        className="w-[12px] h-[12px] mr-2"
-                        srcSet=""
-                        style={{ color: "transparent" }}
-                      />
-                      <span className="font-normal text-base leading-6 tracking-tight">
-                        South Asian
-                      </span>
-                    </div>
-                    <span className="font-normal text-base leading-6 tracking-tight">
-                      7%
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer">
-                    <div className="flex items-center gap-1">
-                      <img
-                        src={RadioButton}
-                        alt="radio button"
-                        loading="lazy"
-                        width={12}
-                        height={12}
-                        decoding="async"
-                        data-nimg="1"
-                        className="w-[12px] h-[12px] mr-2"
-                        srcSet=""
-                        style={{ color: "transparent" }}
-                      />
-                      <span className="font-normal text-base leading-6 tracking-tight">
-                        White
-                      </span>
-                    </div>
-                    <span className="font-normal text-base leading-6 tracking-tight">
-                      5%
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer">
-                    <div className="flex items-center gap-1">
-                      <img
-                        src={RadioButton}
-                        alt="radio button"
-                        loading="lazy"
-                        width={12}
-                        height={12}
-                        decoding="async"
-                        data-nimg="1"
-                        className="w-[12px] h-[12px] mr-2"
-                        srcSet=""
-                        style={{ color: "transparent" }}
-                      />
-                      <span className="font-normal text-base leading-6 tracking-tight">
-                        Middle eastern
-                      </span>
-                    </div>
-                    <span className="font-normal text-base leading-6 tracking-tight">
-                      0%
-                    </span>
-                  </div>
-                </div>
+                )}
               </div>
             </div>
             <div className="pt-4 md:pt-[37px] pb-6 bg-white sticky bottom-40 md:static md:bottom-0 mb-8 md:mb-16">
@@ -328,6 +320,6 @@ function formatCategory() {
       </div>
     </>
   );
-}
+};
 
-export default Layer013;
+export default Layer0131;
