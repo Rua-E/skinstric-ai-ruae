@@ -23,12 +23,12 @@ const Layer000 = () => {
 
           {/* Main Heading */}
           <div
-            className={`z-10 transition-transform duration-700 ease-in-out absolute top-1/2 left-1/2 -translate-y-1/2
+            className={`z-10 transition-transform duration-500 ease-in-out absolute top-1/2 left-1/2 -translate-y-1/2
                 ${
                   hovered === "left"
-                    ? "translate-x-[300px]" // move right over #right-section
+                    ? "translate-x-[calc(50%+2px)]" // move right over #right-section
                     : hovered === "right"
-                    ? "-translate-x-[300px]" // move left over #left-section
+                    ? "translate-x-[calc(-150%-2px)]" // move left over #left-section
                     : "-translate-x-1/2" // default center
                 }
               `}
