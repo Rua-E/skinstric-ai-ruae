@@ -55,7 +55,7 @@ function ToStartAnalysisForm() {
   useEffect(() => {
     const timer = setTimeout(() => {
       setPrepareAnalysis(false);
-    }, 5000);
+    }, 2500);
 
     // CLEANUP TIMER ON UNMOUNT
     return () => clearTimeout(timer);
