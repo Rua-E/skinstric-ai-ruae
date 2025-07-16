@@ -13,32 +13,78 @@ import { useState } from "react";
 import Layer011 from "./Layer011";
 
 function Layer005() {
+  const [isLoading, setIsLoading] = useState(false);
+  const [preview, setPreview] = useState(null);
   const fileInputRef = useRef(null);
+  const navigate = useNavigate();
+
+  const API_ENDPOINT =
+    "https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseTwo";
 
   const handleClick = () => {
     // OPEN FILE PICKER
     fileInputRef.current.click();
   };
 
-  const [isLoading, setIsLoading] = useState(false);
-  const navigate = useNavigate();
-
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     const file = event.target.files[0];
-    if (file) {
-      console.log("Selected file", file);
-    }
+
     if (!file) return;
+    // if (file) {
+    //   console.log("Selected file", file);
+    // } if (!file) return;
 
     setIsLoading(true);
+
+    const reader = new FileReader();
+    reader.onloadend = async () => {
+      const base64String = reader.result.split(",")[1];
+      setPreview(reader.result);
+
+      try {
+        // SENT TO API
+        const response = await fetch(API_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ image: base64 }),
+        });
+
+        const result = await response.json();
+
+        if (result?.message?.includes("SUCCESS")) {
+          alert("Image analyzed successfully!");
+          navigate("/select");
+        } else {
+          // console.error(result);
+          alert("Image upload failed: " + result.message);
+        }
+      } catch (error) {
+        // console.error("Upload error:", error);
+        alert("An error occurred. Try again.");
+      } finally {
+        setIsLoading(false);
+      }
+
+      // TRIGGER ONLOADEND
+    };
+    reader.readAsDataURL(file);
+
+    // if (file && file.type.startswith("image/")) {
+    //   const previewURL = URL.createObjectURL(file);
+    //   setPreview(previewURL);
+    // } else {
+    //   alert("Please select a valid image file.");
+    // }
 
     // simulate image processing (send to backend)
     setTimeout(() => {
       setIsLoading(false);
-      alert("Image analyzed successfully!");
+      // alert("Image analyzed successfully!");
 
-      // Navigate to next page after clicking 'ok' on alert
-      navigate("/select");
+      // // Navigate to next page after clicking 'ok' on alert
+      // navigate("/select");
     }, 2000);
   };
 
@@ -184,29 +230,10 @@ function Layer005() {
                   <input
                     type="file"
                     accept="image/*"
-                    ref={fileInputRef}
                     onChange={handleFileChange}
+                    ref={fileInputRef}
                     className="h-40 w-40 absolute invisible z-1"
                   />
-
-                  {/* {isLoading && (
-              <Layer011 /> */}
-
-                  {/* // <div className="w-screen h-screen bg-white z-10">
-                //   <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50">
-                //     <div className="relative z-10">
-                //       <p className="text-lt text-gray-500 mb-2">
-                //         PROCESSING SUBMISSION
-                //       </p>
-                //       <div className="flex items-center justify-center space-x-4 py-8">
-                //         <div className="w-2 h-2 rounded-full bg-[#1A1B1C] animate-[bounce_1s_infinite_250ms] opacity-30"></div>
-                //         <div className="w-2 h-2 rounded-full bg-[#1A1B1C] animate-[bounce_1s_infinite_500ms] opacity-30"></div>
-                //         <div className="w-2 h-2 rounded-full bg-[#1A1B1C] animate-[bounce_1s_infinite_500ms] opacity-30"></div>
-                //       </div>
-                //     </div>
-                //   </div>
-                // </div>
-              // )} */}
 
                   <div className="absolute top-[75%] md:top-[70%] md:left-[17px] translate-y-[-10px]">
                     <p className="text-[12px] md:text-[14px] font-normal mt-2 leading-[24px] text-right">
@@ -228,11 +255,26 @@ function Layer005() {
                   </div>
                 </div>
               </div>
-              <div className="absolute top-[75px] right-7 md:top-[-50px] md:right-8 transition-opacity duration-300 opacity-100">
-                <h1 className="text-xs md:text-sm font-normal mb-1">Preview</h1>
-                <div className="w-24 h-24 md:w-32 md:h-32 border border-gray-300 overflow-hidden"></div>
-              </div>
-              <input accept="image/*" className="hidden" type="file" />
+            </div>
+          </div>
+        )}
+
+        {/* <div className="absolute mt-20 top-[75px] right-7 md:top-[-50px] md:right-8 transition-opacity duration-300">
+          <h1 className="text-xs md:text-sm font-normal mb-1">Preview</h1>
+          <div className="w-24 h-24 md:w-32 md:h-32 border border-gray-300 overflow-hidden"></div>
+        </div>
+        <input accept="image/*" className="hidden" type="file" /> */}
+
+        {/* SHOW IMAGE PREVIEW  */}
+        {preview && (
+          <div className="absolute mt-20 top-[75px] right-7 md:top-[-50px] md:right-8 transition-opacity duration-300 opacity-100">
+            <h1 className="text-xs md:text-sm font-normal mb-1">Preview</h1>
+            <div className="w-24 h-24 md:w-32 md:h-32 border border-gray-300 overflow-hidden">
+              <img
+                src={preview}
+                alt="Preview"
+                className="w-24 h-24 md:w-32 md:h-32 overflow-hidden"
+              />
             </div>
           </div>
         )}

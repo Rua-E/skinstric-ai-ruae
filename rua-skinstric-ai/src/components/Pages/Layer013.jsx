@@ -1,6 +1,7 @@
 import React from "react";
 import BackButton from "../BackButton";
 import HomeButton from "../HomeButton";
+import RadioButton from "../../assets/radio-button.png";
 
 const Layer013 = () => {
   return (
@@ -49,7 +50,18 @@ const Layer013 = () => {
                       transformOrigin: "center",
                       //   center
                     }}
-                  ></div>
+                  >
+                    <svg className="CircularProgressbar text-[#1A1B1C]" viewBox="0 0 100 100" data-test-id="CircularProgressbar">
+                      <path></path>
+                      <path></path>
+                    </svg>
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <p className="text-3xl md:text-[40px] font-normal">
+                        93
+                        <span className="absolute text-xl md:text-3xl">%</span>
+                      </p>
+                    </div>
+                  </div>
                 </div>
                 <p className="md:absolute text-xs text-[#A0A4AB] md:text-sm lg:text-base font-normal mb-1 leading-[24px] md:bottom-[-15%] md:left-[22%] lg:left-[30%] xl:left-[40%] rxl:left-[45%]">
                   If A.I. estimate is wrong, select the correct one
@@ -68,7 +80,7 @@ const Layer013 = () => {
                   <div className="flex items-center justify-between h-[48px] px-4 cursor-pointer bg-[#1A1B1C] text-white hover:bg-black">
                     <div className="flex items-center gap-1">
                       <img
-                        src=""
+                        src={RadioButton}
                         alt="radio button"
                         loading="lazy"
                         width={12}
@@ -90,7 +102,7 @@ const Layer013 = () => {
                   <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer">
                     <div className="flex items-center gap-1">
                       <img
-                        src=""
+                        src={RadioButton}
                         alt="radio button"
                         loading="lazy"
                         width={12}
@@ -112,7 +124,7 @@ const Layer013 = () => {
                   <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer">
                     <div className="flex items-center gap-1">
                       <img
-                        src=""
+                        src={RadioButton}
                         alt="radio button"
                         loading="lazy"
                         width={12}
@@ -134,7 +146,7 @@ const Layer013 = () => {
                   <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer">
                     <div className="flex items-center gap-1">
                       <img
-                        src=""
+                        src={RadioButton}
                         alt="radio button"
                         loading="lazy"
                         width={12}
@@ -156,7 +168,7 @@ const Layer013 = () => {
                   <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer">
                     <div className="flex items-center gap-1">
                       <img
-                        src=""
+                        src={RadioButton}
                         alt="radio button"
                         loading="lazy"
                         width={12}
@@ -178,7 +190,7 @@ const Layer013 = () => {
                   <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer">
                     <div className="flex items-center gap-1">
                       <img
-                        src=""
+                        src={RadioButton}
                         alt="radio button"
                         loading="lazy"
                         width={12}
@@ -200,7 +212,7 @@ const Layer013 = () => {
                   <div className="flex items-center justify-between  h-[48px] hover:bg-[#E1E1E2] pc-4 cursor-pointer">
                     <div className="flex items-center gap-1">
                       <img
-                        src=""
+                        src={RadioButton}
                         alt="radio button"
                         loading="lazy"
                         width={12}
