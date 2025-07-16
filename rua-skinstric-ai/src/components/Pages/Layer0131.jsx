@@ -22,11 +22,15 @@ const Layer0131 = () => {
   ];
 
   const ageFields = [
-    { label: "0–18", value: "5%" },
-    { label: "19–29", value: "15%" },
-    { label: "30–44", value: "25%" },
-    { label: "45–59", value: "30%" },
-    { label: "60+", value: "25%" },
+    { label: "0–2", value: "1%" },
+    { label: "3–9", value: "6%" },
+    { label: "10–19", value: "0%" },
+    { label: "20–29", value: "1%" },
+    { label: "30-39", value: "1%" },
+    { label: "40-49", value: "9%" },
+    { label: "50-59", value: "5%" },
+    { label: "60-69", value: "47%" },
+    { label: "70+", value: "27%" },
   ];
 
   const sexFields = [
