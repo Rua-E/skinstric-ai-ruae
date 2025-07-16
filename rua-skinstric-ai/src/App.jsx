@@ -7,6 +7,7 @@ import Layer011 from "./components/Pages/Layer011";
 import Layer012 from "./components/Pages/Layer012";
 import Layer013 from "./components/Pages/Layer013";
 import Layer009 from "./components/Pages/Layer009";
+import Layer007 from "./components/Pages/Layer007";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           {/* <Route path="/Layer011" element={<Layer011 />} /> */}
           <Route path="/select" element={<Layer012 />} />
           <Route path="/summary" element={<Layer013 />} />
+          <Route path="/camera" element={<Layer007 />} />
           <Route path="/capture" element={<Layer009 />} />
         </Routes>
       </Router>

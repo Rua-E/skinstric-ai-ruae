@@ -11,12 +11,14 @@ import BackButton from "../BackButton";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Layer011 from "./Layer011";
+import SelfieCapture from "../SelfieCapture";
 
 function Layer005() {
   const [isLoading, setIsLoading] = useState(false);
   const [preview, setPreview] = useState(null);
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
 
   const API_ENDPOINT =
     "https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseTwo";
@@ -55,16 +57,12 @@ function Layer005() {
 
         if (result?.message?.includes("SUCCESS")) {
           alert("Image analyzed successfully!");
+          localStorage.setItem("demographicData", JSON.stringify(data.data));
           navigate("/select");
-        } else {
-          console.error(result);
-          alert("Image upload failed: " + result.message);
         }
       } catch (error) {
         console.error("Upload error:", error);
         alert("An error occurred. Try again.");
-      } finally {
-        setIsLoading(false);
       }
 
       // TRIGGER ONLOADEND
@@ -82,11 +80,13 @@ function Layer005() {
     setTimeout(() => {
       setIsLoading(false);
       alert("Image analyzed successfully!");
-
+      navigate("/select");
       // // Navigate to next page after clicking 'ok' on alert
       // navigate("/select");
     }, 2000);
   };
+
+  const togglePopup = () => setIsOpen(!isOpen);
 
   return (
     <>
@@ -168,7 +168,9 @@ function Layer005() {
                     data-nimg="1"
                     className="absolute w-[100px] h-[100px] md:w-[136px] md:h-[136px] hover:scale-105 duration-700 ease-in-out cursor-pointer"
                     src={CameraIcon}
+                    onClick={togglePopup}
                   />
+
                   <div className="absolute bottom-[1%] right-[90px] md:top-[30.9%] md:right-[-12px] translate-y-[-20px]">
                     <p className="text-xs md:text-sm font-normal mt-1 leading-[24px]">
                       ALLOW A.I
@@ -189,6 +191,21 @@ function Layer005() {
                     />
                   </div>
                 </div>
+
+                {isOpen && (
+                  <>
+                    <div className="absolute md:top-[43%] md:left-[360px] w-[352px] z-50">
+                      <div className="bg-[#1A1B1C] pt-4 pb-2">
+                        <h2 className="text-[#FCFCFC] text-base font-semibold mb-12 leading-[24px] pl-4">ALLOW A.I. TO ACCESS YOUR CAMERA</h2>
+                        <div className="flex mt-4 border-t border-[#FCFCFC] pt-2 pl-40">
+                          <button className="px-7 md:translate-x-45 text-[#fcfcfca1] font-normal text-sm leading-4 tracking-tight cursor-pointer hover:text-gray-500">DENY</button>
+                          <button className="px-5 md:translate-x-45 text-[#FCFCFC] font-semibold text-sm leading-4 tracking-tight cursor-pointer hover:text-gray-300">ALLOW</button>
+                        </div>
+                      </div>
+                    </div>
+                    <SelfieCapture />
+                  </>
+                )}
               </div>
               <div className="relative md:absolute md:left-[45%] lg:left-[50%] xl:left-[55%] flex flex-col items-center mt-12 md:mt-0 justify-center md:-translate-y-[0%] -translate-y-[10%] translation-opacity duration-300 opacity-100">
                 <div className="w-[270px] h-[270px] md:w-[482px] md:h-[482px]"></div>

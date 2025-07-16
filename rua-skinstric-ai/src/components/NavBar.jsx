@@ -39,11 +39,6 @@ const NavBar = () => {
               {" "}
               ANALYSIS
             </p>
-          ) : location.pathname === "/capture" ? (
-            <p className="text-[#1a1b1cB3] text-opacity-70 font-semibold text-sm ml-1.5 mr-1.5">
-              {" "}
-              ANALYSIS
-            </p>
           ) : (
             <p className="text-[#1a1b1cB3] text-opacity-70 font-semibold text-sm ml-1.5 mr-1.5">
               {" "}
