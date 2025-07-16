@@ -85,13 +85,6 @@ function Layer005() {
       }
     };
     reader.readAsDataURL(file);
-
-    // simulate image processing (send to backend)
-    // setTimeout(() => {
-    //   alert("Image analyzed successfully!");
-    //   navigate("/select");
-
-    // }, 2000);
   };
 
   const togglePopup = () => setIsOpen(!isOpen);

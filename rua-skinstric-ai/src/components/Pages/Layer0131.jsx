@@ -6,9 +6,6 @@ import HomeButton from "../HomeButton";
 import RadioButton from "../../assets/radio-button.png";
 import CircleProgress from "../CircleProgress";
 
-// const API_URL =
-//   "https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseTwo";
-
 const Layer0131 = () => {
   const [selectedRaceIndex, setSelectedRaceIndex] = useState(0);
   const [selectedAgeIndex, setSelectedAgeIndex] = useState(0);
@@ -27,13 +24,13 @@ const Layer0131 = () => {
     if (storedData) {
       try {
         const parsedData = JSON.parse(storedData);
-        // const { race, age, gender } = parsedData;
+
         setDemographicData(parsedData);
 
         const formatFields = (obj) =>
           Object.entries(obj || {}).map(([label, value]) => ({
             label,
-            value: `${Math.round(value * 100)}%`,
+            value: `${Math.round(value * 100).toFixed(2)}%`,
           }));
 
         setRaceFields(formatFields(parsedData.race));
@@ -183,51 +180,53 @@ const Layer0131 = () => {
                       </h4>
                     </div>
                     <div className="space-y-2">
-                      {getActiveFields().map((field, index) => {
-                        const isSelected =
-                          (activeSection === "RACE" &&
-                            selectedRaceIndex === index) ||
-                          (activeSection === "AGE" &&
-                            selectedAgeIndex === index) ||
-                          (activeSection === "SEX" &&
-                            selectedSexIndex === index);
+                      {getActiveFields()
+                        .sort((a, b) => parseFloat(b.value) - parseFloat(a.value))
+                        .map((field, index) => {
+                          const isSelected =
+                            (activeSection === "RACE" &&
+                              selectedRaceIndex === index) ||
+                            (activeSection === "AGE" &&
+                              selectedAgeIndex === index) ||
+                            (activeSection === "SEX" &&
+                              selectedSexIndex === index);
 
-                        return (
-                          <div
-                            key={field.label}
-                            onClick={() => handleSelection(index)}
-                            className={`flex items-center justify-between h-[48px] px-4 cursor-pointer transition-colors duration-200 ${
-                              isSelected
-                                ? "bg-black"
-                                : "hover:bg-[#E1E1E1] bg-transparent"
-                            }`}
-                          >
-                            <div className="flex items-center gap-1">
-                              <img
-                                src={RadioButton}
-                                alt="radio button"
-                                className={`w-[12px] h-[12px] mr-2 ${
-                                  isSelected ? "invert brightness-0" : ""
-                                }`}
-                              />
+                          return (
+                            <div
+                              key={field.label}
+                              onClick={() => handleSelection(index)}
+                              className={`flex items-center justify-between h-[48px] px-4 cursor-pointer transition-colors duration-200 ${
+                                isSelected
+                                  ? "bg-black"
+                                  : "hover:bg-[#E1E1E1] bg-transparent"
+                              }`}
+                            >
+                              <div className="flex items-center gap-1">
+                                <img
+                                  src={RadioButton}
+                                  alt="radio button"
+                                  className={`w-[12px] h-[12px] mr-2 ${
+                                    isSelected ? "invert brightness-0" : ""
+                                  }`}
+                                />
+                                <span
+                                  className={`font-normal text-base leading-6 tracking-tight ${
+                                    isSelected ? "text-white" : "text-black"
+                                  }`}
+                                >
+                                  {field.label}
+                                </span>
+                              </div>
                               <span
                                 className={`font-normal text-base leading-6 tracking-tight ${
                                   isSelected ? "text-white" : "text-black"
                                 }`}
                               >
-                                {field.label}
+                                {field.value}
                               </span>
                             </div>
-                            <span
-                              className={`font-normal text-base leading-6 tracking-tight ${
-                                isSelected ? "text-white" : "text-black"
-                              }`}
-                            >
-                              {field.value}
-                            </span>
-                          </div>
-                        );
-                      })}
+                          );
+                        })}
                     </div>
                   </div>
                 )}
