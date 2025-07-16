@@ -23,31 +23,31 @@ const Layer0131 = () => {
 
   useEffect(() => {
     const storedData = localStorage.getItem("demographicData");
-    
-    if (storedData) {
 
+    if (storedData) {
       try {
         const parsedData = JSON.parse(storedData);
         // const { race, age, gender } = parsedData;
         setDemographicData(parsedData);
-  
+
         const formatFields = (obj) =>
           Object.entries(obj || {}).map(([label, value]) => ({
             label,
             value: `${Math.round(value * 100)}%`,
           }));
-  
+
         setRaceFields(formatFields(parsedData.race));
         setAgeFields(formatFields(parsedData.age));
         setSexFields(formatFields(parsedData.gender));
       } catch (error) {
-        console.error("Error parsing demographicData from localStorage:", error);
+        console.error(
+          "Error parsing demographicData from localStorage:",
+          error
+        );
       }
-
     } else {
       console.warn("No demographicData found in localStorage.");
     }
-
   }, []);
 
   useEffect(() => {
@@ -55,7 +55,7 @@ const Layer0131 = () => {
 
     if (!demographicDataRaw) {
       console.error("No demographicData found in localStorage.");
-    
+
       return;
     }
 
@@ -66,8 +66,6 @@ const Layer0131 = () => {
       console.error("Error parsing demographicData from localStorage:", error);
     }
   }, []);
-
-
 
   const getActiveFields = () => {
     if (activeSection === "RACE") return raceFields;
@@ -82,8 +80,6 @@ const Layer0131 = () => {
     if (activeSection === "SEX") return sexFields[selectedSexIndex]?.label;
     return "";
   };
-
-
 
   const getSelectedValue = () => {
     if (activeSection === "RACE" && raceFields[selectedRaceIndex])

@@ -55,17 +55,17 @@ function Layer005() {
         console.log("Full API response:", result);
 
         if (result?.success && result?.data) {
-          const { age, sex, race } = result.data;
+          const { age, gender, race } = result.data;
 
           const demographics = {
             age,
-            gender: sex,
+            gender,
             race,
           };
 
           console.log("Race:", race);
           console.log("Age:", age);
-          console.log("Sex:", sex);
+          console.log("Sex:", gender);
 
           localStorage.setItem("demographicData", JSON.stringify(demographics));
           console.log(
