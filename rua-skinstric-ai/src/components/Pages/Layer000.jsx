@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 
 import MainHeading from "../MainHeading";
 import LeftSection from "../LeftSection";
 import RightSection from "../RightSection";
 
+import Polygon from "../../assets/Polygon.png";
+
 const Layer000 = () => {
+  const [hovered, setHovered] = useState(null);
+
   return (
     <>
       <div className="max-sm:scale-[0.75] max-sm:origin-center max-sm:p-6">
@@ -15,6 +19,21 @@ const Layer000 = () => {
 
           <div className="absolute inset-0 flex items-center justify-center lg:hidden">
             <div className="w-[420px] h-[420px] border border-dotted border-[#A0A4AB] rotate-45 absolute top-1/2 left-1/2 -translate-x-[52%] -translate-y-1/2"></div>
+          </div>
+
+          {/* Main Heading */}
+          <div
+            className={`z-10 transition-transform duration-700 ease-in-out absolute top-1/2 left-1/2 -translate-y-1/2
+                ${
+                  hovered === "left"
+                    ? "translate-x-[300px]" // move right over #right-section
+                    : hovered === "right"
+                    ? "-translate-x-[300px]" // move left over #left-section
+                    : "-translate-x-1/2" // default center
+                }
+              `}
+          >
+            <MainHeading />
           </div>
 
           <p className="z-10 block lg:hidden w-[30ch] mt-4 text-[16px] font-semibold text-center text-muted-foreground text-[#1a1b1c83]">
@@ -43,7 +62,7 @@ const Layer000 = () => {
             </a>
           </div>
 
-          <div className="hidden lg:block fixed bottom-[calc(-7vh)] left-[calc(-20vw)] xl:left-[calc(-27vw)] 2xl:left-[calc(-31vw)] [@media(width>=1920px)]:left-[calc(-33vw)] font-normal text-sm text-[#1A1B1C] space-y-3 uppercase">
+          <div className="hidden lg:block fixed bottom-[calc(-7vh)] left-[calc(-47vw)] font-normal text-sm text-[#1A1B1C] space-y-3 uppercase">
             <p>
               Skinstric developed an A.I. that creates
               <br />
@@ -53,10 +72,54 @@ const Layer000 = () => {
             </p>
           </div>
 
-          <div className="group/left group/right">
-            <MainHeading className=""/>
-            <LeftSection className="" />
-            <RightSection />
+          {/* LEFT SECTION */}
+          <div
+            id="left-section"
+            onMouseEnter={() => setHovered("left")}
+            onMouseLeave={() => setHovered(null)}
+            className={`hidden lg:block fixed left-[calc(-53vw)] xl:left-[calc(-50vw)] top-1/2 -translate-y-1/2 w-[500px] h-[500px] transition-opacity duration-500 ease-in-out
+                ${hovered === "right" ? "opacity-0" : "opacity-100"}
+              `}
+          >
+            <div className="relative w-full h-full">
+              <div className="w-full h-full border-[1px] border-dotted border-[#A0A4AB] rotate-45 fixed top-[3px] left-[-250px] inset-0"></div>
+              <button
+                id="discover-button"
+                className="group inline-flex items-center justify-center gap-4 whitespace-nowrap rounded-md text-sm font-normal text-[#1A1B1C] transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring cursor-pointer disabled:opacity-50 h-9 absolute top-[250px] left-[100px] -translate-y-1/2 translate-x-1/5 xl:translate-x-1/6 [@media(width>=1920px)]:translate-x-1/20 px-3 py-1"
+              >
+                <div className="w-[30px] h-[30px] border border-solid border-black rotate-45 group-hover:scale-110 duration-300"></div>
+                <span className="absolute left-[20px] top-[12px] scale-[0.9] group-hover:scale-105 duration-300">
+                  <img src={Polygon} alt="" />
+                </span>
+                <span>DISCOVER A.I.</span>
+              </button>
+            </div>
+          </div>
+
+          {/* RIGHT SECTION */}
+          <div
+            id="right-section"
+            onMouseEnter={() => setHovered("right")}
+            onMouseLeave={() => setHovered(null)}
+            className={`hidden lg:block fixed top-1/2 right-[calc(-53vw)] xl:right-[calc(-50vw)] -translate-y-1/2 w-[500px] h-[500px] transition-opacity duration-500 ease-in-out
+                ${hovered === "left" ? "opacity-0" : "opacity-100"}
+              `}
+          >
+            <div className="relative w-full h-full">
+              <div className="w-full h-full border-[1px] border-dotted border-[#A0A4AB] rotate-45 fixed top-[3px] left-[250px] inset-0"></div>
+              <a href="/testing">
+                <button
+                  id="take-test-button"
+                  className="group inline-flex items-center justify-center gap-4 text-sm font-normal text-[#1A1B1C] cursor-pointer h-9 absolute top-[250px] left-[225px] -translate-y-1/2 -translate-x-1/5 xl:-translate-x-1/6 [@media(width>=1920px)]:-translate-x-1/20 px-3 py-1"
+                >
+                  TAKE TEST
+                  <div className="w-[30px] h-[30px] border border-solid border-black rotate-45 group-hover:scale-110 duration-300"></div>
+                  <span className="absolute left-[111px] top-[12px] scale-[0.9] rotate-180 group-hover:scale-105 duration-300">
+                    <img src={Polygon} alt="" />
+                  </span>
+                </button>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -65,3 +128,9 @@ const Layer000 = () => {
 };
 
 export default Layer000;
+
+<div className="group/left group/right">
+  <MainHeading className="" />
+  <LeftSection className="" />
+  <RightSection />
+</div>;
