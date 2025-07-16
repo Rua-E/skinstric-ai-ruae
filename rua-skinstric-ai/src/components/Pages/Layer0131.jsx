@@ -18,6 +18,9 @@ const Layer0131 = () => {
   const [ageFields, setAgeFields] = useState([]);
   const [sexFields, setSexFields] = useState([]);
 
+  const [selectedRaceLabel, setSelectedRaceLabel] = useState("");
+  const [selectedSexLabel, setSelectedSexLabel] = useState("");
+
   useEffect(() => {
     const storedData = localStorage.getItem("demographicData");
 
@@ -34,8 +37,36 @@ const Layer0131 = () => {
           }));
 
         setRaceFields(formatFields(parsedData.race));
-        setAgeFields(formatFields(parsedData.age));
         setSexFields(formatFields(parsedData.gender));
+
+        const sortedRace = [...formatFields(parsedData.race)].sort(
+          (a, b) => parseFloat(b.value) - parseFloat(a.value)
+        );
+        setSelectedRaceLabel(sortedRace[0]?.label || "");
+
+        const sortedSex = [...formatFields(parsedData.gender)].sort(
+          (a, b) => parseFloat(b.value) - parseFloat(a.value)
+        );
+        setSelectedSexLabel(sortedSex[0]?.label || "");
+
+        // setAgeFields(formatFields(parsedData.age));
+
+        const formattedAgeFields = formatFields(parsedData.age);
+
+        // Find the index of the highest value
+        let maxIndex = 0;
+        let maxValue = -Infinity;
+
+        formattedAgeFields.forEach((field, idx) => {
+          const num = parseFloat(field.value.replace("%", ""));
+          if (num > maxValue) {
+            maxValue = num;
+            maxIndex = idx;
+          }
+        });
+
+        setAgeFields(formattedAgeFields);
+        setSelectedAgeIndex(maxIndex);
       } catch (error) {
         console.error(
           "Error parsing demographicData from localStorage:",
@@ -71,27 +102,43 @@ const Layer0131 = () => {
     return [];
   };
 
-  const getSelectedLabel = () => {
-    if (activeSection === "RACE") return raceFields[selectedRaceIndex]?.label;
-    if (activeSection === "AGE") return ageFields[selectedAgeIndex]?.label;
-    if (activeSection === "SEX") return sexFields[selectedSexIndex]?.label;
-    return "";
-  };
+  const getSelectedLabel = () => getSelectedField()?.label || "";
 
-  const getSelectedValue = () => {
-    if (activeSection === "RACE" && raceFields[selectedRaceIndex])
-      return raceFields[selectedRaceIndex].value;
-    if (activeSection === "AGE" && ageFields[selectedAgeIndex])
-      return ageFields[selectedAgeIndex].value;
-    if (activeSection === "SEX" && sexFields[selectedSexIndex])
-      return sexFields[selectedSexIndex].value;
-    return "0%";
-  };
+  const getSelectedValue = () => getSelectedField()?.value || "0%";
 
   const handleSelection = (index) => {
-    if (activeSection === "RACE") setSelectedRaceIndex(index);
-    if (activeSection === "AGE") setSelectedAgeIndex(index);
-    if (activeSection === "SEX") setSelectedSexIndex(index);
+    const field = getSortedFieldsWithIndex()[index];
+    if (activeSection === "RACE") {
+      setSelectedRaceLabel(field.label);
+    } else if (activeSection === "AGE") {
+      setSelectedAgeIndex(field.originalIndex);
+    } else if (activeSection === "SEX") {
+      setSelectedSexLabel(field.label);
+    }
+  };
+
+  const getSelectedField = () => {
+    if (activeSection === "RACE") {
+      return raceFields.find((f) => f.label === selectedRaceLabel);
+    }
+    if (activeSection === "SEX") {
+      return sexFields.find((f) => f.label === selectedSexLabel);
+    }
+    if (activeSection === "AGE") {
+      return ageFields[selectedAgeIndex];
+    }
+    return null;
+  };
+
+  const getSortedFieldsWithIndex = () => {
+    const fields = getActiveFields();
+    if (activeSection === "AGE") {
+      return fields.map((f, i) => ({ ...f, originalIndex: i }));
+    }
+
+    return fields
+      .map((f, i) => ({ ...f, originalIndex: i }))
+      .sort((a, b) => parseFloat(b.value) - parseFloat(a.value));
   };
 
   return (
@@ -140,7 +187,7 @@ const Layer0131 = () => {
                       onClick={() => setActiveSection(section)}
                     >
                       <p className="text-base font-semibold">
-                        {fields[index]?.label || ""}
+                        {(fields[index]?.label || "").toUpperCase()}
                       </p>
                       <h4 className="text-base font-semibold mb-1">
                         {section}
@@ -153,7 +200,12 @@ const Layer0131 = () => {
               {/* Center Circle */}
               <div className="relative bg-gray-100 p-4 flex flex-col items-center justify-center md:h-[57vh] border-t border-black md:border-t">
                 <p className="hidden md:block md:absolute text-[40px] mb-2 left-5 top-2">
-                  {getSelectedLabel()}
+                  {activeSection === "RACE"
+                    ? getSelectedLabel()?.charAt(0).toUpperCase() +
+                      getSelectedLabel()?.slice(1).toLowerCase()
+                    : activeSection === "AGE"
+                    ? `${getSelectedLabel()} y.o.`
+                    : getSelectedLabel()?.toUpperCase()}
                 </p>
                 <div className="absolute bottom-4 right-4 w-[384px] h-[384px]">
                   <CircleProgress
@@ -180,53 +232,56 @@ const Layer0131 = () => {
                       </h4>
                     </div>
                     <div className="space-y-2">
-                      {getActiveFields()
-                        .sort((a, b) => parseFloat(b.value) - parseFloat(a.value))
-                        .map((field, index) => {
-                          const isSelected =
-                            (activeSection === "RACE" &&
-                              selectedRaceIndex === index) ||
-                            (activeSection === "AGE" &&
-                              selectedAgeIndex === index) ||
-                            (activeSection === "SEX" &&
-                              selectedSexIndex === index);
+                      {getSortedFieldsWithIndex().map((field, index) => {
+                        const isSelected =
+                          (activeSection === "RACE" &&
+                            field.label === selectedRaceLabel) ||
+                          (activeSection === "AGE" &&
+                            field.originalIndex === selectedAgeIndex) ||
+                          (activeSection === "SEX" &&
+                            field.label === selectedSexLabel);
 
-                          return (
-                            <div
-                              key={field.label}
-                              onClick={() => handleSelection(index)}
-                              className={`flex items-center justify-between h-[48px] px-4 cursor-pointer transition-colors duration-200 ${
-                                isSelected
-                                  ? "bg-black"
-                                  : "hover:bg-[#E1E1E1] bg-transparent"
-                              }`}
-                            >
-                              <div className="flex items-center gap-1">
-                                <img
-                                  src={RadioButton}
-                                  alt="radio button"
-                                  className={`w-[12px] h-[12px] mr-2 ${
-                                    isSelected ? "invert brightness-0" : ""
-                                  }`}
-                                />
-                                <span
-                                  className={`font-normal text-base leading-6 tracking-tight ${
-                                    isSelected ? "text-white" : "text-black"
-                                  }`}
-                                >
-                                  {field.label}
-                                </span>
-                              </div>
+                        return (
+                          <div
+                            key={field.label}
+                            onClick={() => handleSelection(index)}
+                            className={`flex items-center justify-between h-[48px] px-4 cursor-pointer transition-colors duration-200 ${
+                              isSelected
+                                ? "bg-black"
+                                : "hover:bg-[#E1E1E1] bg-transparent"
+                            }`}
+                          >
+                            <div className="flex items-center gap-1">
+                              <img
+                                src={RadioButton}
+                                alt="radio button"
+                                className={`w-[12px] h-[12px] mr-2 ${
+                                  isSelected ? "invert brightness-0" : ""
+                                }`}
+                              />
                               <span
                                 className={`font-normal text-base leading-6 tracking-tight ${
                                   isSelected ? "text-white" : "text-black"
                                 }`}
                               >
-                                {field.value}
+                                {activeSection === "RACE"
+                                  ? field.label?.charAt(0).toUpperCase() +
+                                    field.label?.slice(1).toLowerCase()
+                                  : activeSection === "SEX"
+                                  ? field.label?.toUpperCase()
+                                  : field.label}
                               </span>
                             </div>
-                          );
-                        })}
+                            <span
+                              className={`font-normal text-base leading-6 tracking-tight ${
+                                isSelected ? "text-white" : "text-black"
+                              }`}
+                            >
+                              {field.value}
+                            </span>
+                          </div>
+                        );
+                      })}
                     </div>
                   </div>
                 )}
