@@ -48,7 +48,7 @@ function Layer005() {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ image: base64 }),
+          body: JSON.stringify({ image: base64String }),
         });
 
         const result = await response.json();
@@ -57,11 +57,11 @@ function Layer005() {
           alert("Image analyzed successfully!");
           navigate("/select");
         } else {
-          // console.error(result);
+          console.error(result);
           alert("Image upload failed: " + result.message);
         }
       } catch (error) {
-        // console.error("Upload error:", error);
+        console.error("Upload error:", error);
         alert("An error occurred. Try again.");
       } finally {
         setIsLoading(false);
@@ -81,7 +81,7 @@ function Layer005() {
     // simulate image processing (send to backend)
     setTimeout(() => {
       setIsLoading(false);
-      // alert("Image analyzed successfully!");
+      alert("Image analyzed successfully!");
 
       // // Navigate to next page after clicking 'ok' on alert
       // navigate("/select");
@@ -96,9 +96,25 @@ function Layer005() {
         </div>
 
         {isLoading ? (
-          <div className="-mb-40 -mt-40">
-            <Layer011 />
-          </div>
+          <>
+            <div className="-mb-40 -mt-40">
+              <Layer011 />
+              {preview && (
+                <div className="absolute mt-20 top-[75px] right-7 md:top-[-50px] md:right-8 transition-opacity duration-300 opacity-100">
+                  <h1 className="text-xs md:text-sm font-normal mb-1">
+                    Preview
+                  </h1>
+                  <div className="w-24 h-24 md:w-32 md:h-32 border border-gray-300 overflow-hidden">
+                    <img
+                      src={preview}
+                      alt="Preview"
+                      className="w-24 h-24 md:w-32 md:h-32 overflow-hidden"
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
+          </>
         ) : (
           <div>
             <div className="flex-[0.4] md:flex-1 flex flex-col md:flex-row items-center xl:justify-center relative mb-0 md:mb-30 space-y-[-20px] md:space-y-0">
@@ -259,14 +275,14 @@ function Layer005() {
           </div>
         )}
 
-        {/* <div className="absolute mt-20 top-[75px] right-7 md:top-[-50px] md:right-8 transition-opacity duration-300">
+        <div className="absolute mt-20 top-[75px] right-7 md:top-[-50px] md:right-8 transition-opacity duration-300">
           <h1 className="text-xs md:text-sm font-normal mb-1">Preview</h1>
           <div className="w-24 h-24 md:w-32 md:h-32 border border-gray-300 overflow-hidden"></div>
         </div>
-        <input accept="image/*" className="hidden" type="file" /> */}
+        <input accept="image/*" className="hidden" type="file" />
 
         {/* SHOW IMAGE PREVIEW  */}
-        {preview && (
+        {/* {preview && (
           <div className="absolute mt-20 top-[75px] right-7 md:top-[-50px] md:right-8 transition-opacity duration-300 opacity-100">
             <h1 className="text-xs md:text-sm font-normal mb-1">Preview</h1>
             <div className="w-24 h-24 md:w-32 md:h-32 border border-gray-300 overflow-hidden">
@@ -277,7 +293,7 @@ function Layer005() {
               />
             </div>
           </div>
-        )}
+        )} */}
 
         <div className=" md:pt-0 pb-8 bg-white sticky md:static bottom-30.5 mb-0 md:mb-0">
           <div className="absolute bottom-8 w-full flex justify-between md:px-9 px-13">
