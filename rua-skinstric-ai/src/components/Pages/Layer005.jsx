@@ -298,20 +298,6 @@ function Layer005() {
         </div>
         <input accept="image/*" className="hidden" type="file" />
 
-        {/* SHOW IMAGE PREVIEW  */}
-        {/* {preview && (
-          <div className="absolute mt-20 top-[75px] right-7 md:top-[-50px] md:right-8 transition-opacity duration-300 opacity-100">
-            <h1 className="text-xs md:text-sm font-normal mb-1">Preview</h1>
-            <div className="w-24 h-24 md:w-32 md:h-32 border border-gray-300 overflow-hidden">
-              <img
-                src={preview}
-                alt="Preview"
-                className="w-24 h-24 md:w-32 md:h-32 overflow-hidden"
-              />
-            </div>
-          </div>
-        )} */}
-
         <div className=" md:pt-0 pb-8 bg-white sticky md:static bottom-30.5 mb-0 md:mb-0">
           <div className="absolute bottom-8 w-full flex justify-between md:px-9 px-13">
             <a className="relative" label="Back" href="/testing">

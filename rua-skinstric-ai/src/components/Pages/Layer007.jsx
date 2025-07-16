@@ -1,58 +1,24 @@
-import React, { useRef, useState, useEffect } from "react";
-import Polygon from "../../assets/Polygon.png";
-import TakePictureIcon from "../../assets/Group 40037.png";
-import CameraIcon from "../../assets/camera-icon.png";
+import React, { useEffect } from "react";
 
+import CameraIcon from "../../assets/camera-icon.png";
 import LargeRectangle from "../../assets/Rectangle 2780.png";
 import MediumRectangle from "../../assets/Rectangle 2779.png";
 import SmallRectangle from "../../assets/Rectangle 2778.png";
+import { useNavigate } from "react-router-dom";
 
 const Layer007 = () => {
-  //   const videoRef = useRef(null);
-  //   const canvasRef = useRef(null);
-  //   const [imageData, setImageData] = useState(null);
+    const navigate = useNavigate();
 
-  //   // START CAMERA ON MOUNT
-  //   useEffect(() => {
-  //     startCamera();
-  //   }, []);
-
-  //   const startCamera = async () => {
-  //     try {
-  //       const stream = await navigator.mediaDevices.getUserMedia({
-  //         video: { facingMode: "user" },
-  //         audio: false,
-  //       });
-  //       if (videoRef.current) {
-  //         videoRef.current.srcObject = stream;
-  //         await videoRef.current.play();
-  //       }
-  //     } catch (error) {
-  //       console.error("Error accessing camera:", error);
-  //     }
-  //   };
-
-  //   const takeSelfie = () => {
-  //     const video = videoRef.current;
-  //     const canvas = canvasRef.current;
-  //     const context = canvas.getContext("2d");
-
-  //     canvas.width = video.videoWidth;
-  //     canvas.height = video.videoHeight;
-
-  //     context.drawImage(video, 0, 0, canvas.width, canvas.height);
-
-  //     const imageDataURL = canvas.toDataURL("image/png");
-  //     setImageData(imageDataURL);
-  //   };
-
-  //   const handleRedirect = () => {
-  //     navigate('/capture')
-  //   }
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            navigate("/camera/capture");
+        }, 5000)
+        return () => clearTimeout(timer);
+    }, [navigate]);
 
   return (
     <>
-      {/* <div className="h-[90vh] w-screen"> */}
+    
         <div className="md:h-[85vh] h-[65vh] bg-white flex items-center justify-center">
           <div className="flex flex-col items-center justify-center h-[70vh] overflow-auto">
             <div className="flex-0 flex flex-col md:flex-row items-center justify-center relative">
@@ -67,7 +33,7 @@ const Layer007 = () => {
                 decoding="async"
                 data-nimg="1"
                 className="absolute w-[270px] h-[270px] md:w-[482px] md:h-[482px] animate-spin-slow"
-                // style="color:transparent"
+      
                 src={LargeRectangle}
               />
               <img
@@ -78,7 +44,7 @@ const Layer007 = () => {
                 decoding="async"
                 data-nimg="1"
                 className="absolute w-[230px] h-[230px] md:w-[444.34px] md:h-[444.34px] animate-spin-slower"
-                // style="color:transparent"
+ 
                 src={MediumRectangle}
               />
               <img
@@ -88,8 +54,8 @@ const Layer007 = () => {
                 height="405.18"
                 decoding="async"
                 data-nimg="1"
-                class="absolute w-[190px] h-[190px] md:w-[405.18px] md:h-[405.18px] animate-spin-slowest"
-                // style="color:transparent"
+                className="absolute w-[190px] h-[190px] md:w-[405.18px] md:h-[405.18px] animate-spin-slowest"
+
                 src={SmallRectangle}
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center animate-pulse">
@@ -101,7 +67,7 @@ const Layer007 = () => {
                   decoding="async"
                   data-nimg="1"
                   className="w-[100px] h-[100px] md:w-[136px] md:h-[136px] animate-pulse-grow"
-                  //   style={{ color: transparent }}
+  
                   src={CameraIcon}
                 />
                 <p className="mt-2 font-semibold text-sm md:text-base leading-[24px] tracking-tight animate-pulse text-center">
@@ -126,7 +92,7 @@ const Layer007 = () => {
             </div>
           </div>
         </div>
-      {/* </div> */}
+   
     </>
   );
 };

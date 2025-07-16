@@ -82,7 +82,7 @@ const SelfieCapture = () => {
 
   const navigate = useNavigate();
   const handleRedirect = () => {
-    navigate('/capture')
+    navigate('/camera')
   }
 
   return (
