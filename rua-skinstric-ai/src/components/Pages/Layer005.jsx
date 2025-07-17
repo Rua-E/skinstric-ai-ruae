@@ -89,6 +89,10 @@ function Layer005() {
 
   const togglePopup = () => setIsOpen(!isOpen);
 
+  const handleRedirect = () => {
+    navigate("/camera");
+  };
+
   return (
     <>
       <div className="min-h-[92vh] flex flex-col bg-white relative md:pt-[64px] justify-center">
@@ -201,16 +205,22 @@ function Layer005() {
                           ALLOW A.I. TO ACCESS YOUR CAMERA
                         </h2>
                         <div className="flex mt-4 border-t border-[#FCFCFC] pt-2 pl-40">
-                          <button className="px-7 md:translate-x-45 text-[#fcfcfca1] font-normal text-sm leading-4 tracking-tight cursor-pointer hover:text-gray-500">
+                          <button
+                            onClick={() => window.location.reload()}
+                            className="px-7  md:translate-x-45 text-[#fcfcfca1] font-normal text-sm leading-4 tracking-tight cursor-pointer hover:text-gray-500 before:content-[''] before:absolute before:inset-[-8px] before:z-[-1]"
+                          >
                             DENY
                           </button>
-                          <button className="px-5 md:translate-x-45 text-[#FCFCFC] font-semibold text-sm leading-4 tracking-tight cursor-pointer hover:text-gray-300">
+                          <button
+                            onClick={handleRedirect}
+                            className="px-5 md:translate-x-45 text-[#FCFCFC] font-semibold text-sm leading-4 tracking-tight cursor-pointer hover:text-gray-300 before:content-[''] before:absolute before:inset-[-8px] before:z-[-1]"
+                          >
                             ALLOW
                           </button>
                         </div>
                       </div>
                     </div>
-                    <SelfieCapture />
+                    {/* <SelfieCapture /> */}
                   </>
                 )}
               </div>
@@ -254,7 +264,12 @@ function Layer005() {
                 />
 
                 {/* UPLOADING PICTURE */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
+
+                <div
+                  className={`absolute inset-0 flex flex-col items-center justify-center transition duration-300 ${
+                    isOpen ? "opacity-40 pointer-events-none" : "opacity-100"
+                  }`}
+                >
                   <img
                     alt="Photo Upload Icon"
                     loading="lazy"

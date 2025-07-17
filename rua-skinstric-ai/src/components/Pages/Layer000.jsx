@@ -23,43 +23,39 @@ const Layer000 = () => {
 
           {/* Main Heading */}
           <div
-            className={`z-10 transition-transform duration-500 ease-in-out absolute top-1/2 left-1/2 -translate-y-1/2
-                ${
-                  hovered === "left"
-                    ? "translate-x-[calc(50%+2px)]" // move right over #right-section
-                    : hovered === "right"
-                    ? "translate-x-[calc(-150%-2px)]" // move left over #left-section
-                    : "-translate-x-1/2" // default center
-                }
-              `}
+            className={`z-10 transition-transform duration-1000 ease-in-out absolute top-1/2 left-1/2 -translate-y-1/2
+    ${
+      hovered === "left"
+        ? "translate-x-[5%]"
+        : hovered === "right"
+        ? "-translate-x-full"
+        : "-translate-x-1/2"
+    }
+  `}
           >
-            <MainHeading />
-          </div>
+            <div className="flex flex-col items-center justify-center text-center">
+              <MainHeading />
 
-          <p className="z-10 block lg:hidden w-[30ch] mt-4 text-[16px] font-semibold text-center text-muted-foreground text-[#1a1b1c83]">
-            Skinstrict developed an A.I. that creates a highly-personalized
-            routing tailored to what your skin needs
-          </p>
+              <p className="z-10 block lg:hidden w-[30ch] mt-4 text-[16px] font-semibold text-muted-foreground text-[#1a1b1c83]">
+                Skinstrict developed an A.I. that creates a highly-personalized
+                routing tailored to what your skin needs
+              </p>
 
-          <div className="z-10 mt-4 lg:hidden">
-            <a href="/testing">
-              <button className="relative flex items-center gap-4 hover:scale-105 duration-300">
-                <span className="text-[12px] font-bold cursor-pointer">
-                  ENTER EXPERIENCE
-                </span>
-                <div className="w-[24px] h-[24px] border border-solid border-black rotate-45 cursor-pointer"></div>
-                <span className="absolute left-[129px] scale-[0.5] hover:scale-60 duration-300">
-                  <svg
-                    viewBox="0 0 24 24"
-                    width={24}
-                    height={24}
-                    className="fill-current text-black"
-                  >
-                    <path d="M8 5v14l11-7z"></path>
-                  </svg>
-                </span>
-              </button>
-            </a>
+              <div className="z-10 mt-4 lg:hidden flex items-center justify-center">
+                <a href="/testing">
+                  <button className="relative flex items-center gap-4 hover:scale-105 duration-300">
+                    <span className="text-[12px] font-bold cursor-pointer">
+                      ENTER EXPERIENCE
+                    </span>
+                    <div className="w-[24px] h-[24px] border border-solid border-black rotate-45 cursor-pointer"></div>
+
+                    <span className="absolute right-[6px] bottom-[8px] scale-[0.9] sm:block group-hover:scale-[0.92] ease duration-300 rotate-180">
+                      <img src={Polygon} alt="" className="w-2 h-2" />
+                    </span>
+                  </button>
+                </a>
+              </div>
+            </div>
           </div>
 
           <div className="hidden lg:block fixed bottom-[calc(-7vh)] left-[calc(-47vw)] font-normal text-sm text-[#1A1B1C] space-y-3 uppercase">
@@ -77,7 +73,7 @@ const Layer000 = () => {
             id="left-section"
             onMouseEnter={() => setHovered("left")}
             onMouseLeave={() => setHovered(null)}
-            className={`hidden lg:block fixed left-[calc(-53vw)] xl:left-[calc(-50vw)] top-1/2 -translate-y-1/2 w-[500px] h-[500px] transition-opacity duration-500 ease-in-out
+            className={`hidden lg:block fixed left-[calc(-53vw)] xl:left-[calc(-50vw)] top-1/2 -translate-y-1/2 w-[475px] h-[475px] transition-opacity duration-500 ease-in-out
                 ${hovered === "right" ? "opacity-0" : "opacity-100"}
               `}
           >
@@ -101,7 +97,7 @@ const Layer000 = () => {
             id="right-section"
             onMouseEnter={() => setHovered("right")}
             onMouseLeave={() => setHovered(null)}
-            className={`hidden lg:block fixed top-1/2 right-[calc(-53vw)] xl:right-[calc(-50vw)] -translate-y-1/2 w-[500px] h-[500px] transition-opacity duration-500 ease-in-out
+            className={`hidden lg:block fixed top-1/2 right-[calc(-53vw)] xl:right-[calc(-50vw)] -translate-y-1/2 w-[475px] h-[475px] transition-opacity duration-500 ease-in-out
                 ${hovered === "left" ? "opacity-0" : "opacity-100"}
               `}
           >

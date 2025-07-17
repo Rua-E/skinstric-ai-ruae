@@ -5,8 +5,10 @@ import HomeButton from "../HomeButton";
 
 import RadioButton from "../../assets/radio-button.png";
 import CircleProgress from "../CircleProgress";
+import { useNavigate } from "react-router-dom";
 
 const Layer0131 = () => {
+  const navigate = useNavigate();
   const [selectedRaceIndex, setSelectedRaceIndex] = useState(0);
   const [selectedAgeIndex, setSelectedAgeIndex] = useState(0);
   const [selectedSexIndex, setSelectedSexIndex] = useState(0);
@@ -158,9 +160,9 @@ const Layer0131 = () => {
               </h4>
             </div>
 
-            <div className="grid md:grid-cols-[1.5fr_8.5fr_3.15fr] gap-4 mt-10 mb-40 md:gap-4 pb-0 md:pb-0 md:mb-0">
+            <div className="grid md:grid-cols-[1.5fr_8.5fr_3.15fr] gap-4 mt-10 mb-0 md:gap-4 pb-0 md:pb-0 md:mb-0">
               {/* Left Tabs */}
-              <div className="bg-white-100 space-y-3 md:flex md:flex-col h-[62%]">
+              <div className="bg-white-100 space-y-3 md:flex md:flex-col h-[55%]">
                 {["RACE", "AGE", "SEX"].map((section) => {
                   const index =
                     section === "RACE"
@@ -198,7 +200,7 @@ const Layer0131 = () => {
               </div>
 
               {/* Center Circle */}
-              <div className="relative bg-gray-100 p-4 flex flex-col items-center justify-center md:h-[57vh] border-t border-black md:border-t">
+              <div className="relative bg-gray-100 p-4 flex flex-col items-center justify-center md:h-[55vh] border-t border-black md:border-t">
                 <p className="hidden md:block md:absolute text-[40px] mb-2 left-5 top-2">
                   {activeSection === "RACE"
                     ? getSelectedLabel()?.charAt(0).toUpperCase() +
@@ -207,7 +209,7 @@ const Layer0131 = () => {
                     ? `${getSelectedLabel()} y.o.`
                     : getSelectedLabel()?.toUpperCase()}
                 </p>
-                <div className="absolute bottom-4 right-4 w-[384px] h-[384px]">
+                <div className="absolute bottom-0.5 right-4 w-[384px] h-[384px]">
                   <CircleProgress
                     percent={parseInt(
                       getSelectedValue()?.replace("%", "") || "0"
@@ -220,7 +222,7 @@ const Layer0131 = () => {
               </div>
 
               {/* Right Options */}
-              <div className="bg-gray-100 pt-4 pb-4 border-t border-black md:border-t">
+              <div className="bg-gray-100 pt-4 border-t border-black md:border-t h-[100%]">
                 {getActiveFields().length > 0 && (
                   <div className="space-y-0">
                     <div className="flex justify-between px-4">
@@ -288,14 +290,29 @@ const Layer0131 = () => {
               </div>
             </div>
 
-            <div className="pt-4 md:pt-[37px] pb-6 bg-white sticky bottom-40 md:static md:bottom-0 mb-8 md:mb-16">
+            <div className="pt-4 md:pt-[37px] pb-10 mb-20 bg-white sticky bottom-40 md:static md:bottom-0 md:mb-16">
               <div className="flex justify-between max-w-full mx-auto px-4 md:px-0">
                 <a href="/select">
                   <BackButton />
                 </a>
-                <a href="/">
+                {/* <a href="/">
                   <HomeButton />
-                </a>
+                </a> */}
+
+                <div className="flex justify-center space-x-6">
+                  <button
+                    className="px-4 py-1 bg-gray-200 text-gray-800 cursor-pointer hover:bg-gray-300 shadow-md text-sm"
+                    onClick={() => navigate("/result")}
+                  >
+                    RESET
+                  </button>
+                  <button
+                    className="px-6 py-2 bg-[#1A1B1C] text-[#FCFCFC] cursor-not-allowed hover:bg-gray-800 shadow-md text-sm"
+                    disabled
+                  >
+                    CONFIRM
+                  </button>
+                </div>
               </div>
             </div>
           </div>

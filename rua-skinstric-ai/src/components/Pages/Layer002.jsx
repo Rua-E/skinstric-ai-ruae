@@ -29,7 +29,7 @@ const Layer002 = () => {
             height={762}
             decoding="async"
             data-nimg="1"
-            className="absolute w-[480px] h-[480px] md:w-[762px] md:h-[762px] animate-spin-slow"
+            className="absolute w-[400px] h-[400px] md:w-[762px] md:h-[762px] animate-spin-slow"
             srcSet={`${LargeRectangle} 1x, ${LargeRectangle} 2x`}
             src={LargeRectangle}
             style={{ color: "transparent" }}
@@ -41,7 +41,7 @@ const Layer002 = () => {
             height={682}
             decoding="async"
             data-nimg="1"
-            className="absolute w-[400px] h-[400px] md:w-[682px] md:h-[682px] animate-spin-slower"
+            className="absolute w-[320px] h-[320px] md:w-[682px] md:h-[682px] animate-spin-slower"
             srcSet={`${MediumRectangle} 1x, ${MediumRectangle} 2x`}
             src={MediumRectangle}
             style={{ color: "transparent" }}
@@ -53,7 +53,7 @@ const Layer002 = () => {
             height={602}
             decoding="async"
             data-nimg="1"
-            className="absolute w-[320px] h-[320px] md:w-[602px] md:h-[602px] animate-spin-slowest"
+            className="absolute w-[240px] h-[240px] md:w-[602px] md:h-[602px] animate-spin-slowest"
             srcSet={`${SmallRectangle} 1x, ${SmallRectangle} 2x`}
             src={SmallRectangle}
             style={{ color: "transparent" }}
