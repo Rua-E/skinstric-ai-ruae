@@ -8,7 +8,6 @@ import Layer012 from "./components/Pages/Layer012";
 import Layer013 from "./components/Pages/Layer013";
 import Layer009 from "./components/Pages/Layer009";
 import Layer007 from "./components/Pages/Layer007";
-import Layer0131 from "./components/Pages/Layer0131";
 
 function App() {
   return (
@@ -20,10 +19,10 @@ function App() {
           <Route path="/testing" element={<Layer002 />} />
           <Route path="/loading" element={<Layer011 />} />
           <Route path="/select" element={<Layer012 />} />
-          <Route path="/summary" element={<Layer0131 />} />
           <Route path="/result" element={<Layer005 />} />
           <Route path="/camera" element={<Layer007 />} />
           <Route path="/camera/capture" element={<Layer009 />} />
+          <Route path="/summary" element={<Layer013 />} />
         </Routes>
       </Router>
     </>

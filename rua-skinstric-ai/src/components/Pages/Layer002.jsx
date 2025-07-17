@@ -1,14 +1,9 @@
-// import React, { useRef } from "react";
-import Rombuses from "../../assets/rombuses.png";
 import BackButton from "../BackButton";
 import ToStartAnalysisForm from "../ToStartAnalysisForm";
 
 import LargeRectangle from "../../assets/Rectangle 2780.png";
 import MediumRectangle from "../../assets/Rectangle 2779.png";
 import SmallRectangle from "../../assets/Rectangle 2778.png";
-
-// const myButton = document.getElementById("myButton");
-// const myInput = document.getElementById("myInput");
 
 const Layer002 = () => {
   return (
@@ -18,9 +13,6 @@ const Layer002 = () => {
           <p className="font-semibold text-xs">TO START ANALYSIS</p>
         </div>
         <div className="relative flex flex-col items-center justify-center mb-40 w-full h-full">
-          {/* <p className="text-sm text-gray-400 tracking-wider uppercase mb-1">
-            CLICK TO TYPE
-          </p> */}
           <ToStartAnalysisForm />
           <img
             alt="Diamond Large"

@@ -11,7 +11,7 @@ import BackButton from "../BackButton";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Layer011 from "./Layer011";
-import SelfieCapture from "../SelfieCapture";
+
 
 function Layer005() {
   const [isLoading, setIsLoading] = useState(false);

@@ -1,9 +1,7 @@
 import React from "react";
-import BackButton from "../BackButton";
 import LargeRectangle from "../../assets/Rectangle 2780.png";
 import MediumRectangle from "../../assets/Rectangle 2779.png";
 import SmallRectangle from "../../assets/Rectangle 2778.png";
-import ProceedButton from "../ProceedButton";
 
 const Layer011 = () => {
   return (

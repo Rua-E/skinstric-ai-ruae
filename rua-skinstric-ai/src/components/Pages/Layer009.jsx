@@ -1,9 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Polygon from "../../assets/Polygon.png";
 import TakePictureIcon from "../../assets/Group 40037.png";
-import ProceedButton from "../ProceedButton";
+
 import Layer011 from "./Layer011";
-import { useNavigate } from "react-router-dom";
 
 const Layer009 = () => {
   const videoRef = useRef(null);
@@ -54,16 +55,9 @@ const Layer009 = () => {
   const handleRedirect = () => {
     navigate("/camera");
   };
-  
-  
-  // setIsLoading(true);
 
   setTimeout(() => {
     setIsLoading(false);
-   
-    // navigate("/select");
-    // // Navigate to next page after clicking 'ok' on alert
-
   }, 1000);
 
   return (
@@ -180,11 +174,8 @@ const Layer009 = () => {
             </div>
           )}
           <canvas ref={canvasRef} className="hidden" />
-
           </>
         )}
-
-
         </div>
       </div>
     </>
