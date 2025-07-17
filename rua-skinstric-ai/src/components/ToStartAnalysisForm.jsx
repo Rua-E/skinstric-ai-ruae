@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import ProceedButton from "./ProceedButton";
 
-
 function ToStartAnalysisForm() {
   const [step, setStep] = useState(1);
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [prepareAnalysis, setPrepareAnalysis] = useState(true);
-
 
   const handleSubmit = async () => {
     // SAVE TO LOCAL STORAGE
@@ -52,22 +50,31 @@ function ToStartAnalysisForm() {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleNext = () => {
-    if (step === 1 && name.trim() === "") {
-      alert("Please enter your name.");
-      return;
-    }
 
-    if (step === 2 && location.trim() === "") {
-      alert("Please enter your location.");
-      return;
+  const handleNext = () => {
+    if (step === 1) {
+      if (!isValidString(name)) {
+        alert("Please enter a valid name. Letters only. No Numbers.");
+        return;
+      }
     }
 
     if (step === 2) {
-      handleSubmit(); // <--- Submit when going from step 2 to 3
+      if (!isValidString(location)) {
+        alert("Please enter a valid location. Letters only. No Numbers.");
+        return;
+      }
+
+      handleSubmit(); // Submit after validating location
     }
 
     setStep(step + 1);
+  };
+
+  const isValidString = (str) => {
+    const trimmed = str.trim();
+    const onlyLetters = /^[A-Za-z\s]+$/; // only letters and spaces
+    return trimmed.length > 0 && onlyLetters.test(trimmed);
   };
 
   return (
