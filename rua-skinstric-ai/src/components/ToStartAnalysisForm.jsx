@@ -1,24 +1,13 @@
 import React, { useState, useEffect } from "react";
 import ProceedButton from "./ProceedButton";
 
-// const ToStartAnalysisForm = () => {
+
 function ToStartAnalysisForm() {
   const [step, setStep] = useState(1);
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [prepareAnalysis, setPrepareAnalysis] = useState(true);
 
-  const handleNext = () => {
-    if (step === 1 && name.trim() === "") {
-      alert("Please enter your name.");
-      return;
-    }
-    if (step === 2 && location.trim() === "") {
-      alert("Please enter your location.");
-      return;
-    }
-    setStep(step + 1);
-  };
 
   const handleSubmit = async () => {
     // SAVE TO LOCAL STORAGE
@@ -26,13 +15,15 @@ function ToStartAnalysisForm() {
     localStorage.setItem("location", location);
 
     const payload = { name, location };
+    console.log("Submitting to backend API:", payload);
+
     const apiUrl =
       "https://us-central1-api-skinstric-ai.cloudfunctions.net/skinstricPhaseOne";
 
     try {
       const response = await fetch(apiUrl, {
         method: "POST",
-        header: {
+        headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
@@ -60,6 +51,24 @@ function ToStartAnalysisForm() {
     // CLEANUP TIMER ON UNMOUNT
     return () => clearTimeout(timer);
   }, []);
+
+  const handleNext = () => {
+    if (step === 1 && name.trim() === "") {
+      alert("Please enter your name.");
+      return;
+    }
+
+    if (step === 2 && location.trim() === "") {
+      alert("Please enter your location.");
+      return;
+    }
+
+    if (step === 2) {
+      handleSubmit(); // <--- Submit when going from step 2 to 3
+    }
+
+    setStep(step + 1);
+  };
 
   return (
     <div>
